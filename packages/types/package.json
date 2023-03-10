@@ -1,0 +1,21 @@
+{
+  "name": "@hype-commerce/types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "tsc -w --outdir dist ",
+    "dev": "NODE_ENV=development webpack",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "babel-loader": "^9.1.2",
+    "stripe": "^11.13.0"
+  }
+}

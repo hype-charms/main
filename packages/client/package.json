@@ -1,0 +1,42 @@
+{
+  "name": "@hype-commerce/client",
+  "version": "1.0.0",
+  "description": "hype-charms-libs",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=development webpack",
+    "dev": "tsc -w --outdir dist ",
+    "build": "webpack"
+  },
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ]
+    }
+  },
+  "browser": {
+    "./dist": "./dist/index.js"
+  },
+  "author": "joseph walker",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@babel/register": "^7.21.0",
+    "@hype-commerce/types": "*",
+    "@stripe/stripe-js": "^1.48.0",
+    "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "dotenv-webpack": "^8.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "path": "^0.12.7",
+    "stripe": "^11.13.0"
+  },
+  "devDependencies": {
+    "@types/html-webpack-plugin": "^3.2.6",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
