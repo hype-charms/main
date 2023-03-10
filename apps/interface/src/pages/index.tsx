@@ -17,8 +17,8 @@ const ProductsCategories = dynamic<ProductCategoriesProps>(() => import("../cont
 const AllProductsModule = dynamic<AllProductsModuleProps>(() => import("../containers/home/all-products.component").then((data) => data.AllProductsModule))
 const ProductsPage = dynamic<ProductsPageProps>(() => import("../containers/products/products-page").then((data) => data.ProductsPage))
 
-export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
-  const data = await fetch(`${process.env.CLIENT_URL}/api/product/type/123`)
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await fetch(`${process.env.CLIENT_URL}/api/product`)
   const products = await data.json()
   return { props: { products: await products } }
 }

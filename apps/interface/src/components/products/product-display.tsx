@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { useSetNavigateToProduct, useSetNavigateToPack } from "../../+state/hooks";
+import { useNavigateToProduct } from "../../+state/hooks";
 import Image from 'next/image'
 import { Currency, ProductType, StripeItemReference } from "@hype-commerce/types";
 import { formatPrice } from "@hype-commerce/client";
@@ -11,8 +11,7 @@ export interface ProductDisplayProps {
 }
 export const ProductDisplay: FC<ProductDisplayProps> = ({ product, bg_color, width }): JSX.Element => {
 
-    const navigateToProduct = useSetNavigateToProduct();
-    const navigateToPack = useSetNavigateToPack();
+    const navigateToProduct = useNavigateToProduct();
     const [itemState, setItemState] = useState(true);
 
     useEffect(() => {
@@ -25,7 +24,7 @@ export const ProductDisplay: FC<ProductDisplayProps> = ({ product, bg_color, wid
         if (product.type === ProductType.PRODUCT) {
             navigateToProduct(product.id);
         } else {
-            navigateToPack(product.id);
+            navigateToProduct(product.id);
         }
     }
 

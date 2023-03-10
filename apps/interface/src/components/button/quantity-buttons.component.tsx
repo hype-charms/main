@@ -15,7 +15,7 @@ export const QuantityButtonsComponent: FC<QuantityButtonsComponentProps> = ({ pr
 
     const [quantities, setQuantities] = useState<number>(1);
     const setQuantity = useChangeItemQuantities();
-    const cart = useAppSelector(state => state.cartReducer.cart.cartItems).filter(x => x.id === productId)
+    const cart = useAppSelector(state => state.cartReducer.cart.cartItems)?.filter(x => x.id === productId)
 
     useEffect(() => {
         if (quantity) {
@@ -25,14 +25,14 @@ export const QuantityButtonsComponent: FC<QuantityButtonsComponentProps> = ({ pr
     }, [])
 
     useEffect(() => {
-        if (productId && cart.length > 0 && cart[0]?.quantity) {
+        if (productId && cart?.length > 0 && cart[0]?.quantity) {
             setQuantities(cart[0]?.quantity)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if (cart.length > 0 && cart[0]?.quantity) {
+        if (cart?.length > 0 && cart[0]?.quantity) {
             setQuantities(cart[0]?.quantity)
         }
     }, [cart]);

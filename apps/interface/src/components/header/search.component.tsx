@@ -2,7 +2,7 @@
 import { ChangeEvent, FC, useCallback, useEffect, useRef, useState } from "react"
 import { useAppSelector } from "../../+state"
 import { useRouter } from 'next/router'
-import { useSetNavigateToPack, useSetNavigateToProduct } from "../../+state/hooks";
+import { useNavigateToProduct } from "../../+state/hooks";
 import { SearchReference } from "../../models";
 import { StripeItemReference } from "@hype-commerce/types";
 
@@ -12,8 +12,7 @@ export const SearchComponent: FC<{ screenPositionAtZero: boolean, items: StripeI
     const [value, setValue] = useState<string>("");
     const [dropdown, setDropdown] = useState<boolean>(false)
     const router = useRouter()
-    const navigateToPack = useSetNavigateToPack();
-    const navigateToProduct = useSetNavigateToProduct();
+    const navigateToProduct = useNavigateToProduct();
     const searchRefs = useAppSelector(state => state.applicationReducer.searchReferences)
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -63,7 +62,7 @@ export const SearchComponent: FC<{ screenPositionAtZero: boolean, items: StripeI
                     id="results"
                     value={data.value}
                     className="flex flex-row justify-between items-center  bg-stone-900 p-3 hover:bg-stone-800 cursor-pointer"
-                    onClick={() => data.type === 'product' ? navigateToPack(data.id) : navigateToProduct(data.id)}>{data.value}</option>
+                    onClick={() => data.type === 'product' ? navigateToProduct(data.id) : navigateToProduct(data.id)}>{data.value}</option>
                 )}
             </div>}
         </>

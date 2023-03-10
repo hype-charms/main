@@ -15,10 +15,9 @@
             "persistent": true
         },
         "lint": {},
-        "deploy": {
+        "start": {
             "dependsOn": [
-                "build",
-                "lint"
+                "^build"
             ]
         }
     }

@@ -14,7 +14,7 @@ interface ProductDetail {
 export const ProductDetail: FC<ProductDetail> = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
     const cart = useAppSelector(state => state.cartReducer.cart.cartItems)
-    const cartHasItem = cart.some(x => x.id === product.id);
+    const cartHasItem = cart?.some(x => x.id === product.id);
     return (
         <>
             <span className="rounded flex flex-col gap-3">

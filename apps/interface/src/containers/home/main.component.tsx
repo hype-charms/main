@@ -2,7 +2,7 @@ import { StripeItemReference } from "@hype-commerce/types";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image"
 import { FC, useEffect, useState } from "react"
-import { useSetNavigateToPack, useSetNavigateToProduct } from "../../+state/hooks";
+import { useNavigateToProduct } from "../../+state/hooks";
 import { PackMetadata, ProductMetadata } from "../../models";
 
 export interface MainComponentProps {
@@ -14,8 +14,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
     const router = useRouter();
     const [count, setCount] = useState<number>(0);
     const [hover, setHover] = useState<boolean>(false);
-    const navigateToPack = useSetNavigateToPack();
-    const navigateToProduct = useSetNavigateToProduct();
+    const navigateToProduct = useNavigateToProduct();
 
     useEffect(() => {
         const interval = window.setInterval(() => {
@@ -48,7 +47,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                             <p className="sm:text-xl md:text-xl lg:text-xl xl:text-xl h-fit text-primary">{packs[count]?.description}</p>
                             <button
                                 disabled={validateInventory()}
-                                onClick={() => navigateToPack(packs[count]?.id)}
+                                onClick={() => navigateToProduct(packs[count]?.id)}
                                 className={` bg-secondary-dark shadow
                                     ${validateInventory() ? '' : ''}
                                      text-2xl text-primary py-4 w-full rounded duration-500 filter transition-all sm:hidden md:hidden lg:block xl:block`}>
@@ -94,7 +93,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                     <div className={MainClasses.controlsContainer}>
                         {[0, 1, 2].map(x => <button key={x} onClick={() => setCount(x)}><Image className={`${x === count ? "" : "opacity-50"} `} src="/white-eye.svg" height={20} width={20} /></button>)}
                     </div>
-                    <button onClick={() => navigateToPack(packs[count]?.id)} className={`text-2xl py-4 absolute bg-secondary-dark sm:bottom-28 md:bottom-16 w-[80%] rounded duration-500 filter transition-all sm:block md:block lg:hidden xl:hidden`}>
+                    <button onClick={() => navigateToProduct(packs[count]?.id)} className={`text-2xl py-4 absolute bg-secondary-dark sm:bottom-28 md:bottom-16 w-[80%] rounded duration-500 filter transition-all sm:block md:block lg:hidden xl:hidden`}>
                         <h3 className="hover:scale-[110%] text-secondary-light duration-500 transition-all">VIEW PACK</h3>
                     </button>
                 </main>

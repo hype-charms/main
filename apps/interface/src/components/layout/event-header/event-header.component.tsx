@@ -28,9 +28,9 @@ export const EventHeaderComponent: FC = (): JSX.Element => {
 const data = [
     {
         title: 'Naruto x Friends',
-        href: '/charm/prod_NGRcVpNqjTfvAs',
+        href: '/product/prod_NGRcVpNqjTfvAs',
     },
     {
         title: 'Interdimentional x Adventures',
-        href: '/charm/prod_NGRZlKcvkEboQr',
+        href: '/product/prod_NGRZlKcvkEboQr',
     }]
