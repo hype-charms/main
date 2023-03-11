@@ -9,13 +9,6 @@
     "postinstall": "prisma generate",
     "build": "webpack"
   },
-  "pipeline": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ]
-    }
-  },
   "author": "joseph walker",
   "license": "ISC",
   "dependencies": {
@@ -26,15 +19,21 @@
     "@prisma/client": "^4.5.0",
     "assert": "^2.0.0",
     "babel-loader": "^9.1.2",
+    "base64-js": "^1.5.1",
     "buffer": "^6.0.3",
     "copy-webpack-plugin": "^11.0.0",
     "crypto-browserify": "^3.12.0",
+    "dir-glob": "^3.0.1",
     "dotenv-webpack": "^8.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "ieee754": "^1.2.1",
+    "ignore": "^5.2.4",
     "ioredis": "^5.3.1",
     "path": "^0.12.7",
     "prisma": "^4.11.0",
+    "readable-stream": "^3.6.2",
     "redis-connection-pool": "^4.0.1",
+    "safer-buffer": "^2.1.2",
     "stream-browserify": "^3.0.0",
     "stripe": "^11.13.0",
     "url": "^0.11.0"

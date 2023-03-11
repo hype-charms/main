@@ -71,7 +71,7 @@ export const EmailListModule: FC<{ onClose?: () => void, title: string, descript
                             aria-busy={form.loading}
                         >
                             <p>Submit</p>
-                            {form.loading && <Image className="animate-spin" src="" alt="" height={20} width={20} />}
+                            {form.loading && <Image className="animate-spin" src="/white-eye.svg" alt="" height={20} width={20} />}
                         </button>
                     </form>
                 </>

@@ -89,10 +89,26 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                         </div>
                     </div>
                     {packs[count]?.metadata?.packName && <><div className="xl:block lg:block md:hidden sm:hidden -z-10 absolute ">
-                        <Image className={`${MainClasses.backgroundImage(hover)} `} src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''} alt="" width={2000} height={1900} objectFit="cover" />
+                        <Image
+                            priority
+                            className={`${MainClasses.backgroundImage(hover)} `}
+                            src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''}
+                            alt=""
+                            width={2000}
+                            height={1900}
+                            objectFit="cover"
+                        />
                     </div>
                         <div className="xl:hidden lg:hidden md:block sm:block block -z-10 absolute ">
-                            <Image className={`${MainClasses.backgroundImage(hover)} `} src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''} alt="" width={1000} height={1600} objectFit="cover" />
+                            <Image
+                                priority
+                                className={`${MainClasses.backgroundImage(hover)} `}
+                                src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''}
+                                alt=""
+                                width={1000}
+                                height={1600}
+                                objectFit="cover"
+                            />
                         </div></>}
                     <div className={MainClasses.controlsContainer}>
                         {[0, 1, 2].map(x => <button
