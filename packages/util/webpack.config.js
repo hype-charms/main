@@ -37,7 +37,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CopyPlugin({
-      patterns: [{ from: 'prisma/schema.prisma', to: 'prisma/schema.prisma' }],
+      patterns: [{ from: 'prisma/schema.prisma', to: 'dist/prisma/schema.prisma' }],
     }),
   ],
 

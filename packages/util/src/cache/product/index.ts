@@ -1,5 +1,4 @@
-import { StripeItemReference } from "../../../../../packages/types";
-import Redis from "ioredis";
+import { StripeItemReference } from "@hype-charms/types";
 import { client, serializeProductData } from "..";
 
 export type ProductStore = { [id: string]: StripeItemReference }

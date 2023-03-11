@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   // webpack optimization mode

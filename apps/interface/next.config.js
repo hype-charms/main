@@ -1,4 +1,4 @@
-
+const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
 /**
  * Don't be scared of the generics here.
  * All they do is to give us autocompletion when using this.
@@ -34,7 +34,7 @@ const securityHeaders = [
   },
 ];
 
-export default defineNextConfig({
+module.exports = defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
   // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
@@ -53,5 +53,12 @@ export default defineNextConfig({
         headers: securityHeaders,
       },
     ];
-  }
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()]
+    }
+
+    return config;
+  },
 });
