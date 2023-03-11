@@ -5,7 +5,7 @@ module.exports = {
   // webpack optimization mode
   mode: "development" === process.env.NODE_ENV ? "development" : "production",
 
-  watch: true,
+  watch: "development" === process.env.NODE_ENV,
 
   // entry files
   entry: "./dist/index.js",
