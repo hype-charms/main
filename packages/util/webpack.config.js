@@ -7,7 +7,7 @@ module.exports = {
   // webpack optimization mode
   mode: "development" === process.env.NODE_ENV ? "development" : "production",
 
-  watch: true,
+  watch: "development" === process.env.NODE_ENV,
 
   // entry files
   entry: "./dist/index.js",
@@ -37,7 +37,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CopyPlugin({
-      patterns: [{ from: 'prisma/schema.prisma', to: 'prisma/schema.prisma' }],
+      patterns: [{ from: 'prisma/schema.prisma', to: 'dist/prisma/schema.prisma' }],
     }),
   ],
 

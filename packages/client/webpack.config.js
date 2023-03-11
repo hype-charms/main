@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   // webpack optimization mode
   mode: "development" === process.env.NODE_ENV ? "development" : "production",
 
-  watch: true,
+  watch: "development" === process.env.NODE_ENV,
 
   // entry files
   entry: "./dist/index.js",
