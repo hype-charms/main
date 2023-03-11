@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "//"
+    ],
+    "pipeline": {
+        "build": {
+            "dependsOn": [
+                "@hype-commerce/types#build"
+            ],
+            "outputs": [
+                ".build/**"
+            ]
+        }
+    }
+}

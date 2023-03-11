@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { DocumentContext } from "next/dist/shared/lib/utils";
-import generateCSP, { generateNonce } from '../utils/generateCSP';
+import generateCSP, { generateNonce } from '../utils/csp/generateCSP';
 import Script from 'next/script'
 
 interface DocumentProps {
@@ -22,8 +22,6 @@ class MyDocument extends Document<DocumentProps> {
     return (
       <Html lang="en">
         <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@1,600&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@1,600&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet" />
           <Script
             id={nonce}

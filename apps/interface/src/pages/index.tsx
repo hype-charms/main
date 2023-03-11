@@ -7,15 +7,15 @@ import fetch from 'isomorphic-fetch'
 import { PageLoaderComponent } from "../components/loader/loader.component";
 import dynamic from "next/dynamic";
 import { ModuleProps } from "../components/layout/module.component";
-import { ProductsPageProps } from "../containers/products/products-page";
 import { AllProductsModuleProps } from "../containers/home/all-products.component";
 import { ProductCategoriesProps } from "../containers/home/products-categories.component";
 import { StripeItemReference } from "@hype-commerce/types";
+import { ProductDisplayProps } from "../components/products/product-display";
 
 const Module = dynamic<ModuleProps>(() => import("../components/layout/module.component").then((data) => data.Module))
 const ProductsCategories = dynamic<ProductCategoriesProps>(() => import("../containers/home/products-categories.component").then((data) => data.ProductsCategories))
 const AllProductsModule = dynamic<AllProductsModuleProps>(() => import("../containers/home/all-products.component").then((data) => data.AllProductsModule))
-const ProductsPage = dynamic<ProductsPageProps>(() => import("../containers/products/products-page").then((data) => data.ProductsPage))
+const ProductsDisplay = dynamic<ProductDisplayProps>(() => import("../components/products/product-display").then((data) => data.ProductDisplay))
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await fetch(`${process.env.CLIENT_URL}/api/product`)
@@ -47,7 +47,9 @@ export default function HomePage({ products }: HomePageProps) {
             <AllProductsModule products={products} />
             <ProductsCategories categories={Object.values(ProductCategories).map(x => ({ title: x, href: `/products/${x}` }))} />
             <Module title="ALL ITEMS" href="/products">
-              <ProductsPage products={products} />
+              <main id="products-main" className="w-full">
+                {products.map((product, idx) => <ProductsDisplay id=" home" key={idx} product={product} />)}
+              </main>
             </Module>
           </div>}
         </>

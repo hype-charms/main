@@ -7,9 +7,10 @@ import { formatPrice } from "@hype-commerce/client";
 export interface ProductDisplayProps {
     product: StripeItemReference,
     bg_color?: string,
-    width?: string
+    width?: string,
+    id: string
 }
-export const ProductDisplay: FC<ProductDisplayProps> = ({ product, bg_color, width }): JSX.Element => {
+export const ProductDisplay: FC<ProductDisplayProps> = ({ product, bg_color, width, id }): JSX.Element => {
 
     const navigateToProduct = useNavigateToProduct();
     const [itemState, setItemState] = useState(true);
@@ -31,17 +32,19 @@ export const ProductDisplay: FC<ProductDisplayProps> = ({ product, bg_color, wid
     return (
         <div key={product.id} className={ProductClasses.productContainer(bg_color, width)}>
             <div className={ProductClasses.clipper} >
-                <button id="product-display-image"
+                <button id={product.name + id}
+                    type="button"
+                    aria-label={`opens a product page for the product ${product.name}`}
                     key={product.id}
                     className={ProductClasses.imageWrapper(itemState)}
                     disabled={itemState}
                     onClick={() => navigate()}
                 >
                     <span className="xl:hidden lg:hidden md:hidden block">
-                        <Image src={product?.images ? product.images[0] ?? '' : ''} alt="" height={140} width={140} />
+                        <Image src={product?.images ? product.images[0] ?? '' : ''} alt={product.description} height={140} width={140} />
                     </span>
                     <span className="xl:block lg:block md:flex hidden">
-                        <Image src={product?.images ? product.images[0] ?? '' : ''} alt="" height={180} width={180} />
+                        <Image src={product?.images ? product.images[0] ?? '' : ''} alt={product.description} height={180} width={180} />
                     </span>
                 </button>
             </div>

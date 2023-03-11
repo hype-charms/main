@@ -8,7 +8,10 @@ export const MobileMenuComponent: FC<{ showMenu: boolean, closeMenu: () => void 
         <div className={CartClasses.wrapper(showMenu)}>
             <div className="flex flex-row items-center justify-between w-full px-3">
                 <h2 className="text-xl">Hype Charms</h2>
-                <button onClick={() => onCloseMenu()}>
+                <button
+                    type="button"
+                    aria-label="closes the navigation menu"
+                    onClick={() => onCloseMenu()}>
                     <Image src="/white-eye.svg" alt="" height={20} width={20} />
                 </button>
             </div>

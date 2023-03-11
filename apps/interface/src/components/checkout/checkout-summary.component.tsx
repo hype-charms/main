@@ -13,7 +13,7 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
     const [formIsInvalid, setFormInvalid] = useState<boolean>(true);
 
     useEffect(() => {
-        const subTotal = cart.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)!
+        const subTotal = cart?.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)!
         const shipping = 800;
         const total = subTotal + shipping;
         setShipping(formatPrice(shipping, Currency.AUD, 1));
@@ -48,8 +48,17 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
                 <p className="text-start">{total}</p>
             </span>
             <form className="w-full flex flex-col gap-2" onSubmit={e => submit(e)}>
+                <label htmlFor="email">Email</label>
                 <span className="w-full h-12">
-                    <input className="h-12 w-full border-accent-one border-2 rounded-xl px-3" type="email" placeholder="Email" value={emailForm} onChange={e => handleChange(e)} />
+                    <input
+                        id="email"
+                        name="email"
+                        className="h-12 w-full border-accent-one border-2 rounded-xl px-3"
+                        type="email"
+                        placeholder="Email"
+                        value={emailForm}
+                        onChange={e => handleChange(e)}
+                    />
                 </span>
                 <span className="w-full flex flex-col">
                     <p className="opacity-60 cursor-pointer hover:opacity-80">Something missing?</p>
@@ -60,11 +69,15 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
                     <button
                         disabled={formIsInvalid}
                         className={`${formIsInvalid ? "opacity-80" : "hover:opacity-75"} bg-secondary text-primary px-8 py-4  rounded`}
-                        type="submit">
+                        type="submit"
+                        title="Proceed to Checkout"
+                        style={{ cursor: formIsInvalid ? "not-allowed" : "pointer" }}
+                    >
                         Proceed to Checkout
                     </button>
                 </span>
             </form>
+
         </div>
     )
 }

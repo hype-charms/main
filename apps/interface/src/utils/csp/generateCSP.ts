@@ -24,7 +24,7 @@ const generateCSP = ({ nonce }: generateCSPProps = {}) => {
     }
   };
 
-  add('script-src', `https://js.stripe.com`)
+  // add('script-src', `https://js.stripe.com`)
   add("script-src", `'self'`);
   add("script-src", `'unsafe-eval'`, { devOnly: true });
   add("script-src", `'nonce-${nonce}'`)

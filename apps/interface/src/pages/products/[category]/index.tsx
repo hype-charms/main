@@ -1,6 +1,6 @@
 import { Layout } from "../../../components/layout/layout.component";
 import { PackMetadata, ProductCategories, ProductMetadata } from "../../../models/product.model";
-import { ProductPageWrapperComponent } from "../../../containers/products/product-page-wrapper.component";
+import { ProductPageWrapperComponent } from "../../../containers/products/products-page";
 import { GetServerSideProps } from "next";
 import { PageLoaderComponent } from "../../../components/loader/loader.component";
 import { StripeItemReference } from "@hype-commerce/types";

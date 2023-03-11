@@ -9,15 +9,15 @@ export const FooterComponent: FC = (): JSX.Element => {
         <footer className={FooterClasses.footer}>
             <div className={FooterClasses.mainContainer}>
                 <section className={`${FooterClasses.section} w-[35rem]`}>
-                    <div className="opacity-80 h-full flex flex-col justify-center items-center w-full">
-                        <h2 className="text-6xl text-accent-one text-left w-full">HYPE</h2><br />
-                        <h2 className="text-6xl text-accent-two text-left w-full">CHARMS</h2>
+                    <div className="opacity-80 h-full flex flex-col justify-center items-center leading-3 w-full">
+                        <h2 className="text-6xl text-primary text-left w-full">HYPE</h2><br />
+                        <h2 className="text-6xl text-primary text-left w-full">CHARMS</h2>
                     </div>
                 </section>
                 <section className={`${FooterClasses.section} flex flex-row justify-evenly items-start flex-wrap w-[40rem]`}>
                     {navigationData.map(({ listItems, title }, idx) => <span className="xl:w-1/2 lg:w-1/2 md:w-1/2 w-full " key={idx}>
                         <ul className="min-w-[10rem] w-full text-left">
-                            <h3 className="text-xl w-full text-left">{title}</h3>
+                            <li><h3 className="text-xl w-full text-left">{title}</h3></li>
                             {listItems.map(({ title, href }, idx) => <li key={idx} className="cursor-pointer hover:text-stone-300 w-full text-left" onClick={() => router.push(href)}>{title}</li>)}
                         </ul>
                     </span>)}

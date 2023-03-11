@@ -49,20 +49,32 @@ export const EmailListModule: FC<{ onClose?: () => void, title: string, descript
                 </h3>
                     <p className={`${size === "small" ? "text-md" : size === "medium" ? "text-lg" : "text-xl"}`}>{description}</p>
                     <form onSubmit={event => handleSubmit(event)}>
+                        <label htmlFor="email-input">Email address</label>
                         <input
                             disabled={form.loading}
                             className={`${size === "small" ? "h-10" : "h-12"} w-full rounded pl-5 bg-secondary-light text-primary-text transition-all duration-500`}
                             placeholder="Email address"
                             value={form.email}
                             type="email"
-                            onChange={event => setForm({ ...form, email: event?.target.value })}>
-                        </input>
-                        {form.error && <p className="text-accent-two py-2 text-center">{form.error}</p>}
-                        <button disabled={form.email.length === 0 || form.loading} className={EmailsClasses.submitbutton(size)}>
+                            id="email-input"
+                            onChange={event => setForm({ ...form, email: event?.target.value })}
+                        />
+                        {form.error && (
+                            <div aria-live="assertive" className="text-accent-two py-2 text-center">
+                                {form.error}
+                            </div>
+                        )}
+                        <button
+                            disabled={form.email.length === 0 || form.loading}
+                            className={EmailsClasses.submitbutton(size)}
+                            aria-label="Submit"
+                            aria-busy={form.loading}
+                        >
                             <p>Submit</p>
                             {form.loading && <Image className="animate-spin" src="" alt="" height={20} width={20} />}
                         </button>
-                    </form></>
+                    </form>
+                </>
             </div>
         </>
     )

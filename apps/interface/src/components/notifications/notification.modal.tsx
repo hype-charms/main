@@ -42,6 +42,8 @@ export const NotificationModalComponent: FC<NotificationModalProps> = ({ width, 
             <div className="w-full h-full flex flex-row items-center justify-between px-2 bg-opacity-0">
                 <p className="text-primary">{notificationRef.text}</p>
                 <button
+                    type="button"
+                    aria-label="closes the notification"
                     onClick={onCloseModal}
                     className="flex flex-col justify-start h-full py-3">
                     <Image src="/white-eye.svg" alt="" height={15} width={15} />

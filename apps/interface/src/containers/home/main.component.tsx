@@ -46,6 +46,8 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                             <h2 className="xl:text-5xl lg:text-4xl md:text-3xl sm:text-3xl text-primary">{packs[count]?.name?.toUpperCase()}</h2>
                             <p className="sm:text-xl md:text-xl lg:text-xl xl:text-xl h-fit text-primary">{packs[count]?.description}</p>
                             <button
+                                type="button"
+                                aria-label={`opens the product page ${packs[count]?.name}`}
                                 disabled={validateInventory()}
                                 onClick={() => navigateToProduct(packs[count]?.id)}
                                 className={` bg-secondary-dark shadow
@@ -63,9 +65,11 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                         <div className={MainClasses.accessoryPackContainer}>
                             {products.length > 0 && products.filter(x => x.metadata?.pack === packs[count]?.metadata?.packName).slice(0, 4).map((item, idx) => {
                                 return <button
+                                    id={item.name}
+                                    type="button"
                                     key={item.id}
                                     disabled={!item.inventory || item.inventory === 0}
-                                    id="accessory-pack-items-main"
+                                    aria-label={`opens the product page for ${item.name}`}
                                     className={`
                                     ${MainClasses.singleItemContainer}
                                      ${item?.name?.split('').join(' ')}
@@ -91,15 +95,31 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                             <Image className={`${MainClasses.backgroundImage(hover)} `} src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''} alt="" width={1000} height={1600} objectFit="cover" />
                         </div></>}
                     <div className={MainClasses.controlsContainer}>
-                        {[0, 1, 2].map(x => <button key={x} onClick={() => setCount(x)}><Image className={`${x === count ? "" : "opacity-50"} `} src="/white-eye.svg" height={20} width={20} /></button>)}
+                        {[0, 1, 2].map(x => <button
+                            type="button"
+                            name={`go to slide ${x}`}
+                            aria-label={`go to slide ${x}`}
+                            key={x}
+                            onClick={() => setCount(x)}>
+                            <Image className={`${x === count ? "" : "opacity-50"} `} alt={x.toString()} src="/white-eye.svg" height={20} width={20} /></button>)}
                     </div>
-                    <button onClick={() => navigateToProduct(packs[count]?.id)} className={`text-2xl py-4 absolute bg-secondary-dark sm:bottom-28 md:bottom-16 w-[80%] rounded duration-500 filter transition-all sm:block md:block lg:hidden xl:hidden`}>
+                    <button
+                        type="button"
+                        aria-label={`opens the product page ${packs[count]?.name}`}
+                        onClick={() => navigateToProduct(packs[count]?.id)}
+                        className={`text-2xl py-4 absolute bg-secondary-dark sm:bottom-28 md:bottom-16 w-[80%] rounded duration-500 filter transition-all sm:block md:block lg:hidden xl:hidden`}
+                    >
                         <h3 className="hover:scale-[110%] text-secondary-light duration-500 transition-all">VIEW PACK</h3>
                     </button>
                 </main>
                 <section className={MainClasses.section}>
                     <div className={`${MainClasses.sectionContainer} pb-1`}>
-                        <button onClick={() => router.push('/products')} className={`bg-secondary-dark ${MainClasses.rightHandButtons}`}>
+                        <button
+                            type="button"
+                            aria-label="opens the page for all products"
+                            onClick={() => router.push('/products')}
+                            className={`bg-secondary-dark ${MainClasses.rightHandButtons}`}
+                        >
                             <h3 className="text-2xl text-primary">ALL ITEMS</h3>
                         </button>
                     </div>

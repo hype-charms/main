@@ -1,7 +1,7 @@
 import { Layout } from "../../components/layout/layout.component";
 import { GetServerSideProps } from 'next'
 import React from "react";
-import { ProductPageWrapperComponent } from "../../containers/products/product-page-wrapper.component";
+import { ProductPageWrapperComponent } from "../../containers/products/products-page";
 import fetch from 'isomorphic-fetch'
 import { PackMetadata, ProductMetadata } from "../../models";
 import { PageLoaderComponent } from "../../components/loader/loader.component";

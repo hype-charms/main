@@ -29,7 +29,13 @@ export const CartItemRenderer = ({ classes, item }: {
             <Image src={(item?.images && item?.images[0]) ?? ''} alt="" height={50} width={50} />
             <div className={classes.controlsContainer}>
                 <QuantityButtonsComponent productId={item.id} quantity={item.quantity} />
-                <button className={classes.controlButton} onClick={() => removeItem(item)}><Image src="/eye.svg" alt="" height={20} width={20} /></button>
+                <button
+                    aria-label={`remove the item ${item.name} from your cart`}
+                    className={classes.controlButton}
+                    onClick={() => removeItem(item)}
+                >
+                    <Image src="/eye.svg" alt="" height={20} width={20} />
+                </button>
             </div>
         </div>
     )
