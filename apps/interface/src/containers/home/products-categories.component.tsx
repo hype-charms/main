@@ -28,9 +28,6 @@ export const ProductsCategories: FC<ProductCategoriesProps> = ({ categories }): 
                             <div onClick={() => router.push(category.href)} id="" className={CategoryClasses.imageWrapper}>
                                 <h2 className={CategoryClasses.titleText}>{category.title.slice(0, 1).toUpperCase()}{category.title.slice(1)}</h2>
                                 <h2 className={CategoryClasses.titleTextSmall}>{category.title.slice(0, 1).toUpperCase()}{category.title.slice(1)}</h2>
-                                <div className="xl:block lg:block hidden">
-                                    <Image src="" alt="" width={600} height={600} />
-                                </div>
                             </div>
                         </div>
                     )

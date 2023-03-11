@@ -22,7 +22,7 @@ module.exports = {
       "secondary-light": "#f5f5f4",
       "secondary-dark": "#18181b",
       "accent-one": "#0f766e",
-      "accent-two": "#dc2626",
+      "accent-two": "#ef4444",
     },
     fontFamily: { 'mono': ['"Nova Flat"', 'ui-monospace', 'SFMono-Regular'], 'sans': ['"Noto Sans"'] },
   },

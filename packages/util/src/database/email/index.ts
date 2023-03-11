@@ -1,6 +1,6 @@
 import { email_dto } from "@prisma/client";
 import { prisma } from "../index"
-import { SubState } from "@hype-commerce/types"
+import { SubState } from "@hype-charms/types"
 
 //GET
 export namespace email {
@@ -26,7 +26,7 @@ export namespace email {
             prisma?.$disconnect()
             return data
         });
-    } 
+    }
 
     //PUT
 

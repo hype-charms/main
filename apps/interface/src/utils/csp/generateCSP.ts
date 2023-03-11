@@ -24,7 +24,7 @@ const generateCSP = ({ nonce }: generateCSPProps = {}) => {
     }
   };
 
-  add('script-src', `https://js.stripe.com`)
+  add('script-src', `https://js.stripe.com/v3`)
   add("script-src", `'self'`);
   add("script-src", `'unsafe-eval'`, { devOnly: true });
   add("script-src", `'nonce-${nonce}'`)
@@ -35,6 +35,10 @@ const generateCSP = ({ nonce }: generateCSPProps = {}) => {
 
   add("style-src", `'unsafe-inline'`);
   add("style-src", `'self'`);
+
+  add("style-src-elem", `https://fonts.googleapis.com/css2`)
+  add("style-src-elem", `'self'`);
+  add("style-src-elem", `'unsafe-inline'`);
 
   add("manifest-src", `'none'`);
 

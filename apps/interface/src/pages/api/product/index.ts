@@ -1,4 +1,4 @@
-import { cache, products, product_cache } from "@hype-commerce/util";
+import { cache, products, product_cache } from "@hype-charms/util";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function StripeRedis(req: NextApiRequest, res: NextApiResponse) {

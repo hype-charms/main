@@ -1,6 +1,6 @@
-// import { products } from "@hype-commerce/util";
-import { ProductCategories } from "@hype-commerce/types"
-import { cache, products, product_cache } from "@hype-commerce/util";
+// import { products } from "@hype-charms/util";
+import { ProductCategories } from "@hype-charms/types"
+import { cache, products, product_cache } from "@hype-charms/util";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function retrieveCategorySpecificPRoducts(req: NextApiRequest, res: NextApiResponse) {

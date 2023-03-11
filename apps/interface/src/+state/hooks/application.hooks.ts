@@ -1,4 +1,4 @@
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -7,23 +7,13 @@ import { NotificationReference, SearchReference } from "../../models";
 import { ProductCategories } from "../../models/product.model";
 import * as appActions from '../actions/application.actions'
 
-export function useSetNavigateToProduct(): (id?: string) => void {
+export function useNavigateToProduct(): (id?: string) => void {
     const router = useRouter();
     return useCallback((id) => {
         if (id) {
-            router.push(`/charm/${id}`)
+            router.push(`/product/${id}`)
         }
     }, [router])
-}
-
-export function useSetNavigateToPack(): (id?: string) => void {
-    const dispatch = useDispatch();
-    const router = useRouter()
-    return useCallback((id) => {
-        if (id) {
-            router.push(`/charm/${id}`)
-        }
-    }, [dispatch, router])
 }
 
 export function useLoadAppSearchReferences(): (items: StripeItemReference[]) => void {

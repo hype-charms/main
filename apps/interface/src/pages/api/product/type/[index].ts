@@ -1,6 +1,4 @@
-// import { ProductType } from "@hype-commerce/types";
-import { ProductType, StripeItemReference } from "@hype-commerce/types";
-import { product_cache, products, cache } from "@hype-commerce/util";
+import { product_cache, products, cache } from "@hype-charms/util";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function retrieveCategoryTypeProducts(req: NextApiRequest, res: NextApiResponse) {

@@ -1,4 +1,4 @@
-import { StripeItemReference } from '@hype-commerce/types';
+import { StripeItemReference } from '@hype-charms/types';
 import { createReducer } from '@reduxjs/toolkit'
 import { PackMetadata } from '../../models/product.model';
 import * as productPackActions from '../actions/product-pack.actions'

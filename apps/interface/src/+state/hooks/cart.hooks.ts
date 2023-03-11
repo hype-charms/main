@@ -21,19 +21,19 @@ export function useChangeItemQuantities(): (increase: boolean, id: string) => vo
     const dispatch = useDispatch();
     const cart = useAppSelector((state) => state.cartReducer.cart);
     return useCallback((increase, id) => {
-        const selectedCart = cart.cartItems.find(cartItem => cartItem.id === id);
-        const index = cart.cartItems.findIndex(cartItem => cartItem.id === id);
+        const selectedCart = cart?.cartItems?.find(cartItem => cartItem.id === id);
+        const index = cart?.cartItems?.findIndex(cartItem => cartItem.id === id);
         if (selectedCart) {
             if (increase) {
                 const { cartItems } = cart;
                 const updatedCart: CartProduct = { ...selectedCart, quantity: (selectedCart.quantity ?? 0) + 1 }
-                const newCart: Cart = { ...cart, cartItems: [...cartItems.slice(0, index), updatedCart, ...cartItems.slice(index + 1)] }
+                const newCart: Cart = { ...cart, cartItems: [...cartItems?.slice(0, index), updatedCart, ...cartItems?.slice(index + 1)] }
                 dispatch(cartActions.increaseItemQuantitiesById(newCart));
 
             } else {
                 const { cartItems } = cart;
                 const updatedCart: CartProduct = { ...selectedCart, quantity: (selectedCart.quantity ?? 2) - 1 }
-                const newCart: Cart = { ...cart, cartItems: [...cartItems.slice(0, index), updatedCart, ...cartItems.slice(index + 1)] }
+                const newCart: Cart = { ...cart, cartItems: [...cartItems?.slice(0, index), updatedCart, ...cartItems?.slice(index + 1)] }
                 dispatch(cartActions.decreaseItemQuantitiesById(newCart));
             }
         }
@@ -44,7 +44,7 @@ export function useAddItemToCart(): (item: CartProduct) => void {
     const dispatch = useDispatch();
     const cart = useAppSelector((state) => state.cartReducer.cart);
     return useCallback((item) => {
-        const selectedCart = cart.cartItems.find(cartItem => cartItem.id === item.id);
+        const selectedCart = cart.cartItems?.find(cartItem => cartItem.id === item.id);
         const newCart: Cart = { ...cart, cartItems: [...cart.cartItems, { ...item }] }
         // if selected cart finds item... updates state with existing cart
         // else updates with new cart values

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { products, customer, email } from "@hype-commerce/util"
+import { products, customer, email } from "@hype-charms/util"
 
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { useRouter } from 'next/router'
+import Link from "next/link"
 
 export interface ModuleProps {
     children: JSX.Element,
@@ -8,14 +8,11 @@ export interface ModuleProps {
     href?: string
 }
 export const Module: FC<ModuleProps> = ({ children, title, height, href }): JSX.Element => {
-    const router = useRouter()
     return (
         <div id={title?.split(' ').join('')} className="w-full h-fit-content min-w-[95vw] pt-4" >
-            <h2
-                className={`text-3xl text-slate-800 ${href && "hover:text-blue-500 hover:scale-105"}  text-center cursor-pointer transition-all duration-300`}
-                onClick={() => href ? router.push(href) : ''}>
+            <Link href={href ?? '/404'}><h2 className={`text-3xl text-slate-800 ${href && "hover:text-blue-500 hover:scale-105"}  text-center cursor-pointer transition-all duration-300`}>
                 {title}
-            </h2>
+            </h2></Link>
             <section className={ModuleClasses.section(height)}>
                 {children}
             </section>

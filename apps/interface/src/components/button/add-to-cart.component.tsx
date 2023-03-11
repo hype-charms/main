@@ -1,4 +1,4 @@
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { FC } from "react";
 import { useAddItemToCart } from "../../+state/hooks";
 import { CartProduct } from "../../models/cart.model";
@@ -17,9 +17,21 @@ export const AddToCartComponent: FC<{ product: StripeItemReference, quantity: nu
             unit_amount: product.unit_amount,
         }))
     };
-    return <>{product.inventory && product.inventory > 0 ? <button disabled={cartHasItem} className={ProductsClasses.addToCart(cartHasItem)} onClick={() =>
-        addToCart()}>{!cartHasItem ? "Add to cart" : "Added"}</button> : <button disabled className={ProductsClasses.soldOutButton} onClick={() =>
-            addToCart()}>Sold out</button>}</>
+    return <>{product.inventory && product.inventory > 0 ?
+        <button
+            type="button"
+            aria-label={!cartHasItem ? `Add ${product.name} to your cart` : `${product.name} has already been added to your cart`}
+            disabled={cartHasItem}
+            className={ProductsClasses.addToCart(cartHasItem)}
+            onClick={addToCart}>
+            {!cartHasItem ? "Add to cart" : "Added"}
+        </button>
+        :
+        <button
+            disabled
+            className={ProductsClasses.soldOutButton}>
+            Sold out
+        </button>}</>
 }
 
 const ProductsClasses = {

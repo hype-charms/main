@@ -5,7 +5,7 @@ import { useRemoveItemFromCart } from "../../+state/hooks";
 import { QuantityButtonsComponent } from "../../components/button/quantity-buttons.component";
 import { CartProduct, Currency } from "../../models";
 import { CheckoutSummaryComponent } from "../../components/checkout/checkout-summary.component";
-import { formatPrice } from "@hype-commerce/client";
+import { formatPrice } from "@hype-charms/client";
 
 export default function CheckoutPageComponent() {
 
@@ -16,7 +16,7 @@ export default function CheckoutPageComponent() {
         if (item.id) removeItemFromCart(item.id)
     }, [removeItemFromCart]);
 
-    if (cart.length === 0) {
+    if (cart?.length === 0) {
         return (
             <div className="flex flex-col justify-center items-center w-full py-6">
                 <h3>Your cart is empty</h3>
@@ -29,7 +29,7 @@ export default function CheckoutPageComponent() {
             <h1 className="w-full text-start text-2xl pb-6">Cart Overview</h1>
             <div className={CartClasses.checkoutItemsContainer}>
                 <div className={CheckoutClasses.itemWrapper}>
-                    {cart.map((item, idx) => <>
+                    {cart?.map((item, idx) => <>
                         <div className={CartClasses.productRow}>
                             <div>
                                 <Image src={(item?.images && item?.images[0]) ?? ''} alt="" height={200} width={200} />
@@ -48,7 +48,16 @@ export default function CheckoutPageComponent() {
                                 </p>
                                 <div className={CartClasses.controlsContainer}>
                                     <QuantityButtonsComponent productId={item.id} quantity={item.quantity} />
-                                    <button className={CartClasses.controlButton} onClick={() => removeItem(item)}><Image src="/eye.svg" alt="" height={20} width={20} /></button>
+                                    <button
+                                        type="button"
+                                        name="remove item"
+                                        aria-label="Remove item from cart"
+                                        tabIndex={0}
+                                        className={CartClasses.controlButton}
+                                        onClick={() => removeItem(item)}
+                                    >
+                                        <Image src="/eye.svg" alt="" height={20} width={20} />
+                                    </button>
                                 </div>
                             </div>
                         </div>

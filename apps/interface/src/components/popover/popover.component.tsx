@@ -31,13 +31,24 @@ export const Popover: FC<PopoverProps> = ({ position, children, closePopover, ti
             <div className={moduleClasses.main(open)} >
                 <header onClick={() => onClosePopover()} className={moduleClasses.header}>
                     <p>{title}</p>
-                    <button className="h-full w-fit"><Image src="/eye.svg" alt="" height={20} width={20} /></button>
+                    <button
+                        type="button"
+                        aria-label="closes the pop up"
+                        className="h-full w-fit"
+                    >
+                        <Image src="/eye.svg" alt="" height={20} width={20} />
+                    </button>
                 </header>
                 <div className={moduleClasses.content}>
                     {children}
                 </div>
             </div>
-            <div className={moduleClasses.underlay} onClick={() => onClosePopover()} />
+            <button
+                type="button"
+                aria-label="closes the pop up"
+                className={moduleClasses.underlay}
+                onClick={() => onClosePopover()}
+            />
         </>
     )
 }
