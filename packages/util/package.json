@@ -1,13 +1,12 @@
 {
-  "name": "@hype-commerce/util",
+  "name": "@hype-charms/util",
   "version": "1.0.0",
   "description": "hype-charms-libs",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w --outdir dist ",
-    "postinstall": "prisma generate",
-    "build": "webpack"
+    "postinstall": "prisma generate"
   },
   "author": "joseph walker",
   "license": "ISC",
@@ -15,7 +14,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@babel/register": "^7.21.0",
-    "@hype-commerce/types": "*",
+    "@hype-charms/types": "*",
     "@prisma/client": "^4.5.0",
     "assert": "^2.0.0",
     "babel-loader": "^9.1.2",

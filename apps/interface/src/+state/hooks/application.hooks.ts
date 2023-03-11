@@ -1,4 +1,4 @@
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";

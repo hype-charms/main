@@ -8,7 +8,7 @@ import MobileCheckoutPageComponent from "../../containers/checkout/mobile-checko
 import { useMobileContext } from "../../context/mobile.context";
 import dynamic from "next/dynamic";
 import { AllProductsModuleProps } from "../../containers/home/all-products.component";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 const AllProductsModule = dynamic<AllProductsModuleProps>(() => import("../../containers/home/all-products.component").then(data => data.AllProductsModule))
 

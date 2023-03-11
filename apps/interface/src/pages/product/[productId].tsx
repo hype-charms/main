@@ -6,7 +6,7 @@ import { AllProductsModule } from "../../containers/home/all-products.component"
 import { EventHeaderComponent } from "../../components/layout/event-header/event-header.component";
 import { MobileCharmPageComponent } from "../../containers/charm/mobile-charm.page.component";
 import { useMobileContext } from "../../context/mobile.context";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
   const product = await fetch(`${process.env.CLIENT_URL}/api/product?productId=${query.productId}`).then(result => result.json());

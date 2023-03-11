@@ -1,5 +1,5 @@
-import { formatPrice } from "@hype-commerce/client"
-import { StripeItemReference } from "@hype-commerce/types"
+import { formatPrice } from "@hype-charms/client"
+import { StripeItemReference } from "@hype-charms/types"
 import Image from "next/image"
 import Link from "next/link"
 import { FC, useState } from "react"

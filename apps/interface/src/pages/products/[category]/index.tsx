@@ -3,7 +3,7 @@ import { PackMetadata, ProductCategories, ProductMetadata } from "../../../model
 import { ProductPageWrapperComponent } from "../../../containers/products/products-page";
 import { GetServerSideProps } from "next";
 import { PageLoaderComponent } from "../../../components/loader/loader.component";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     if ('category' in query) {

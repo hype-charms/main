@@ -1,4 +1,4 @@
-import { ProductFilters, StripeItemReference } from "@hype-commerce/types"
+import { ProductFilters, StripeItemReference } from "@hype-charms/types"
 
 export const filterProducts = (items: StripeItemReference[] | undefined, filter: ProductFilters | undefined) => {
     switch (filter) {

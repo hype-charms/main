@@ -1,4 +1,4 @@
-import { Currency } from "@hype-commerce/types";
+import { Currency } from "@hype-charms/types";
 
 /** 
  * 

@@ -5,7 +5,7 @@ import { useRemoveItemFromCart } from "../../+state/hooks";
 import { QuantityButtonsComponent } from "../../components/button/quantity-buttons.component";
 import { CartProduct, Currency } from "../../models";
 import { CheckoutSummaryComponent } from "../../components/checkout/checkout-summary.component";
-import { formatPrice } from "@hype-commerce/client";
+import { formatPrice } from "@hype-charms/client";
 
 export default function CheckoutPageComponent() {
 

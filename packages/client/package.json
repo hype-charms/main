@@ -1,12 +1,11 @@
 {
-  "name": "@hype-commerce/client",
+  "name": "@hype-charms/client",
   "version": "1.0.0",
   "description": "hype-charms-libs",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -w --outdir dist",
-    "build": "webpack"
+    "dev": "tsc -w --outdir dist"
   },
   "browser": {
     "./dist": "./dist/index.js"
@@ -17,7 +16,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@babel/register": "^7.21.0",
-    "@hype-commerce/types": "*",
+    "@hype-charms/types": "*",
     "@stripe/stripe-js": "^1.48.0",
     "babel-loader": "^9.1.2",
     "copy-webpack-plugin": "^11.0.0",

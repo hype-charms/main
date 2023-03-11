@@ -1,4 +1,4 @@
-import { Currency, StripeItemReference, PackMetadata, ProductMetadata, ProductType, ProductCategories, PriceReference } from "@hype-commerce/types";
+import { Currency, StripeItemReference, PackMetadata, ProductMetadata, ProductType, ProductCategories, PriceReference } from "@hype-charms/types";
 import { Stripe } from "stripe";
 import { inventory } from "../../database";
 import { stripe } from "../index"

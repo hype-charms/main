@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from "react"
 import Image from 'next/image'
 import { ProductDetail } from "./product-detail.component"
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 export const CharmPageComponent: FC<{ product: StripeItemReference }> = ({ product }): JSX.Element => {
 

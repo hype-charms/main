@@ -1,7 +1,7 @@
 import { SubState } from '../../../models';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sendWelcomeEmail } from '../../../utils/sendgrid/sendgrid';
-import { customer, email } from '@hype-commerce/util';
+import { customer, email } from '@hype-charms/util';
 
 export default async function EmailList(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     switch (req.method) {

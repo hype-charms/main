@@ -5,7 +5,7 @@ import { ProductPageWrapperComponent } from "../../containers/products/products-
 import fetch from 'isomorphic-fetch'
 import { PackMetadata, ProductMetadata } from "../../models";
 import { PageLoaderComponent } from "../../components/loader/loader.component";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const [products, packs] = await Promise.all([

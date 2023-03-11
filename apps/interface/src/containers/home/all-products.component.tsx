@@ -3,7 +3,7 @@ import { Module } from "../../components/layout/module.component"
 import { ProductMetadata } from "../../models/product.model"
 import dynamic from "next/dynamic"
 import { ProductDisplayProps } from "../../components/products/product-display"
-import { StripeItemReference } from "@hype-commerce/types"
+import { StripeItemReference } from "@hype-charms/types"
 
 const ProductDisplay = dynamic<ProductDisplayProps>(() => import("../../components/products/product-display").then(data => data.ProductDisplay))
 

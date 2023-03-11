@@ -1,4 +1,4 @@
-import { CartProduct } from "@hype-commerce/types";
+import { CartProduct } from "@hype-charms/types";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
 

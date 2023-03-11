@@ -1,19 +1,11 @@
 {
-  "name": "@hype-commerce/types",
+  "name": "@hype-charms/types",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -w --outdir dist ",
-    "build": "webpack"
-  },
-  "pipeline": {
-    "build": {
-      "outputs": [
-        ".build/**"
-      ]
-    }
+    "dev": "tsc -w --outdir dist "
   },
   "author": "",
   "license": "ISC",

@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { ModuleProps } from "../components/layout/module.component";
 import { AllProductsModuleProps } from "../containers/home/all-products.component";
 import { ProductCategoriesProps } from "../containers/home/products-categories.component";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { ProductDisplayProps } from "../components/products/product-display";
 
 const Module = dynamic<ModuleProps>(() => import("../components/layout/module.component").then((data) => data.Module))
@@ -48,7 +48,7 @@ export default function HomePage({ products }: HomePageProps) {
             <ProductsCategories categories={Object.values(ProductCategories).map(x => ({ title: x, href: `/products/${x}` }))} />
             <Module title="ALL ITEMS" href="/products">
               <main id="products-main" className="w-full">
-                {products.map((product, idx) => <ProductsDisplay id=" home" key={idx} product={product} />)}
+                {products.map((product, idx) => <ProductsDisplay id=" home" width="xl:w-[19rem] lg:w-[17rem] md:w-[10rem] sm:w-[11rem] w-[10rem]" key={idx} product={product} />)}
               </main>
             </Module>
           </div>}

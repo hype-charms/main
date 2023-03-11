@@ -3,7 +3,7 @@ import { FC, useState, useEffect, useCallback } from "react"
 import { ProductFilters } from "../../models"
 import dynamic from "next/dynamic";
 import { ModuleProps } from "../../components/layout/module.component";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { filterProducts } from "../../utils/products/filter-products";
 import { ProductDisplay } from "../../components/products/product-display";
 

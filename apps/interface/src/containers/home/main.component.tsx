@@ -1,4 +1,4 @@
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image"
 import { FC, useEffect, useState } from "react"
@@ -40,9 +40,9 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
     return (
         <>
             <div className="xl:w-[100%] lg:w-[100%] xl:flex lg:flex md:flex sm:flex hidden m-auto flex-row h-4/6 " >
-                <main onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={MainClasses.main} >
-                    <div className={MainClasses.backgroundContainer}>
-                        <div className={MainClasses.textContainer}>
+                <main id="main" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={MainClasses.main} >
+                    <div id="background-container" className={MainClasses.backgroundContainer}>
+                        <div id="text-container" className={MainClasses.textContainer}>
                             <h2 className="xl:text-5xl lg:text-4xl md:text-3xl sm:text-3xl text-primary">{packs[count]?.name?.toUpperCase()}</h2>
                             <p className="sm:text-xl md:text-xl lg:text-xl xl:text-xl h-fit text-primary">{packs[count]?.description}</p>
                             <button
@@ -56,13 +56,13 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                                 <h3 className={`${validateInventory() ? '' : 'hover:scale-[110%] '} duration-500 transition-all`}>{validateInventory() ? "SOLD OUT" : "VIEW PACK"}</h3>
                             </button>
                         </div>
-                        <div className={MainClasses.textContainerSmall}>
+                        <div id="text-small" className={MainClasses.textContainerSmall}>
                             <h2 className="text-6xl text-primary">{packs[count]?.name?.toUpperCase()}</h2>
                             <p className="text-xl h-26 text-primary">{packs[count]?.description}</p>
                         </div>
                     </div>
-                    <div className={MainClasses.accessoryPack}>
-                        <div className={MainClasses.accessoryPackContainer}>
+                    <div id="accessory-pack" className={MainClasses.accessoryPack}>
+                        <div id="accessory-pack-container" className={MainClasses.accessoryPackContainer}>
                             {products.length > 0 && products.filter(x => x.metadata?.pack === packs[count]?.metadata?.packName).slice(0, 4).map((item, idx) => {
                                 return <button
                                     id={item.name}
@@ -180,12 +180,12 @@ const MainClasses = {
     textContainer: ` 
     relative text-white font-semibold flex flex-col justify-between
     xl:left-[35%] xl:-top-[25%] xl:w-[30rem] xl:flex xl:h-[60%]
-    lg:-left-[25%] lg:-top-[9%] lg:w-[40%] lg:flex lg:h-[50%]
+    lg:-left-[25%] lg:-top-[9%] lg:w-[40%] lg:flex lg:h-fit
     md:hidden
     sm:flex sm:-top-20 sm:p-0 sm:h-[40%] sm:w-[80%]
     `,
     textContainerSmall: `  
-    relative text-white font-semibold flex flex-col items-start justify-evenly w-full h-[100%]
+    relative text-white font-semibold flex flex-col items-start justify-evenly w-full h-full
     xl:hidden
     lg:hidden 
     md:block md:relative md:px-20 md:py-6
@@ -201,17 +201,17 @@ const MainClasses = {
     accessoryPack: `
      z-10 absolute flex flex-col justify-center items-center
     xl:translate-x-[70%] xl:right-[40%] xl:top-[0%] xl:translate-y-[4%] 
-    lg:translate-x-[70%] lg:right-[40%] lg:top-[0%] lg:translate-y-[3%] 
+    lg:translate-x-[70%] lg:right-[40%] lg:top-[0%] lg:translate-y-[10%] 
     md:translate-y-[20%]
     `,
     singleItemContainer: ` 
     cursor-pointer 
     xl:mx-20 xl:my-6 xl:w-40
-    lg:mx-8 lg:my-12 lg:w-40
-    md:mx-12 md:my-8 md:w-40
+    lg:mx-8 lg:my-3 lg:w-40
+    md:mx-12 md:my-8 md:w-20
     sm:mx-20 sm:w-5/6 sm:my-0
     `,
-    singleItemTitle: ` text-white text-2xl font-semibold text-center w-full`,
+    singleItemTitle: ` text-white text-2xl font-semibold text-center w-full lg:text-xl md:text-xl`,
     image: (disabled: boolean) => ` 
     ${disabled ? ' opacity-50 ' : 'hover:-translate-y-[5%] '}
     filter drop-shadow-white drop-shadow-xl duration-500`,

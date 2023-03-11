@@ -1,4 +1,4 @@
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 import { FC } from "react";
 import { useAddItemToCart } from "../../+state/hooks";
 import { CartProduct } from "../../models/cart.model";

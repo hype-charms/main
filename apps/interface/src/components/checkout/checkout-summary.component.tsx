@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { CartProduct, Currency } from "../../models";
-import { formatPrice, loadCheckout } from "@hype-commerce/client"
+import { formatPrice, loadCheckout } from "@hype-charms/client"
 
 
 export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {

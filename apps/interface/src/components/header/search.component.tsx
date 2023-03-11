@@ -4,7 +4,7 @@ import { useAppSelector } from "../../+state"
 import { useRouter } from 'next/router'
 import { useNavigateToProduct } from "../../+state/hooks";
 import { SearchReference } from "../../models";
-import { StripeItemReference } from "@hype-commerce/types";
+import { StripeItemReference } from "@hype-charms/types";
 
 export const SearchComponent: FC<{ screenPositionAtZero: boolean, items: StripeItemReference[] }> = ({ screenPositionAtZero, items }) => {
 

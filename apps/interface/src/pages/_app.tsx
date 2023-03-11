@@ -13,7 +13,7 @@ import { MobileProdiver } from "../context/mobile.context";
 import dynamic from "next/dynamic";
 import { EmailListNotificationProps } from "../components/notifications/email-notification.component";
 import { CheckoutNotificationProps } from "../components/notifications/checkout-notifications.component";
-import { StripeItemReference, SubState } from "@hype-commerce/types";
+import { StripeItemReference, SubState } from "@hype-charms/types";
 
 const EmailListNotificationComponent = dynamic<EmailListNotificationProps>(() => import("../components/notifications/email-notification.component").then((data) => data.EmailListNotificationComponent))
 const CheckoutNotificationComponent = dynamic<CheckoutNotificationProps>(() => import("../components/notifications/checkout-notifications.component").then((data) => data.CheckoutNotificationComponent))
