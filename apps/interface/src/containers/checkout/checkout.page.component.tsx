@@ -6,8 +6,9 @@ import { QuantityButtonsComponent } from "../../components/button/quantity-butto
 import { CartProduct, Currency } from "../../models";
 import { CheckoutSummaryComponent } from "../../components/checkout/checkout-summary.component";
 import { formatPrice } from "@hype-charms/client";
+import { BookingQuoteDto } from "@hype-charms/types";
 
-export default function CheckoutPageComponent() {
+export default function CheckoutPageComponent({shipping_data}: {shipping_data: BookingQuoteDto | null | undefined}) {
 
     const cart = useAppSelector((state) => state.cartReducer.cart.cartItems);
 
@@ -64,7 +65,7 @@ export default function CheckoutPageComponent() {
                     </>
                     )}
                 </div>
-                <CheckoutSummaryComponent cart={cart} />
+                <CheckoutSummaryComponent cart={cart} shipping_data={shipping_data} />
             </div>
         </section>
     )

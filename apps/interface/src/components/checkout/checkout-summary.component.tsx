@@ -2,15 +2,18 @@ import Link from "next/link"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { CartProduct, Currency } from "../../models";
 import { formatPrice, loadCheckout } from "@hype-charms/client"
+import { BookingQuoteDto } from "@hype-charms/types";
+import Image from "next/image";
 
 
-export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
+export const CheckoutSummaryComponent = ({ cart, shipping_data }: { cart: CartProduct[], shipping_data: BookingQuoteDto | null | undefined }) => {
 
     const [shipping, setShipping] = useState<string>();
     const [subTotal, setSubTotal] = useState<string>();
     const [total, setTotal] = useState<string>();
     const [emailForm, setEmailForm] = useState<string | undefined>(undefined);
     const [formIsInvalid, setFormInvalid] = useState<boolean>(true);
+    const [loadingShippingQuote, setLoadingShippingQuote] = useState<boolean>();
 
     useEffect(() => {
         const subTotal = cart?.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)!
@@ -20,6 +23,10 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
         setSubTotal(formatPrice(subTotal, Currency.AUD, 1))
         setTotal(formatPrice(total, Currency.AUD, 1))
     }, [cart])
+
+    useEffect(() => {
+        setLoadingShippingQuote(!shipping_data)
+    }, [shipping_data])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmailForm(event.currentTarget?.value)
@@ -35,25 +42,26 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
     return (
         <div className={CheckoutClasses.buttonContainer}>
             <h3 className="text-start w-full text-xl">Summary</h3>
-            <span className="w-full flex flex-row">
+            <span className={`loaded w-full flex flex-row rounded`}>
                 <p className="opacity-60 text-start w-full font-bold">Sub total: </p>
                 <p className="text-start">{subTotal}</p>
             </span>
-            <span className="w-full flex flex-row">
+            {!loadingShippingQuote ? <span id="fade-in" className={`loaded w-full flex flex-row rounded`}>
                 <p className="opacity-60 text-start w-full font-bold">Package & Handling: </p>
                 <p className="text-start">{shipping}</p>
-            </span>
-            <span className="w-full flex flex-row py-3 border-y border-accent-one border-opacity-50">
+            </span> : <span id="fade-in" className={` loading w-full opacity-20 flex flex-row rounded h-6`} />}
+            {!loadingShippingQuote ? <span className={`loaded w-full flex flex-row border-y-accent-one border-y-2 py-3`}>
                 <p className="opacity-60 text-start w-full font-bold">Total: </p>
                 <p className="text-start">{total}</p>
-            </span>
+            </span> : <span className={` loading w-full opacity-20 flex flex-row rounded h-14`} />}
             <form className="w-full flex flex-col gap-2" onSubmit={e => submit(e)}>
                 <label htmlFor="email">Email</label>
                 <span className="w-full h-12">
                     <input
                         id="email"
                         name="email"
-                        className="h-12 w-full border-accent-one border-2 rounded-xl px-3"
+                        disabled={loadingShippingQuote}
+                        className={` ${loadingShippingQuote ? "border-secondary" : "border-accent-one"} h-12 w-full  border-2 rounded-xl px-3`}
                         type="email"
                         placeholder="Email"
                         value={emailForm}
@@ -67,7 +75,7 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
                 </span>
                 <span className="w-full flex flex-col gap-2">
                     <button
-                        disabled={formIsInvalid}
+                        disabled={formIsInvalid || loadingShippingQuote}
                         className={`${formIsInvalid ? "opacity-80" : "hover:opacity-75"} bg-secondary text-primary px-8 py-4  rounded`}
                         type="submit"
                         title="Proceed to Checkout"
@@ -77,12 +85,11 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
                     </button>
                 </span>
             </form>
-
         </div>
     )
 }
 
 
 const CheckoutClasses = {
-    buttonContainer: ` w-full h-full flex flex-col items-center gap-2 sticky top-40 px-7`,
+    buttonContainer: ` w-full h-full flex flex-col items-center gap-2 sticky top-40 mx-7 px-2 py-2`,
 }

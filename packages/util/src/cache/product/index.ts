@@ -56,4 +56,11 @@ export namespace product_cache {
     return null
   }
 
+  export const clearProductCache = async () => {
+    await client.get('product_ids')
+      .then(data => data && JSON.parse(data))
+      .then(data => data.map((x: string) => client.del(x)))
+    await client.del('product_ids')
+  }
+
 } 

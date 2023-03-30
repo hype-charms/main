@@ -8,7 +8,9 @@ import MobileCheckoutPageComponent from "../../containers/checkout/mobile-checko
 import { useMobileContext } from "../../context/mobile.context";
 import dynamic from "next/dynamic";
 import { AllProductsModuleProps } from "../../containers/home/all-products.component";
-import { StripeItemReference } from "@hype-charms/types";
+import { BookingQuoteDto, StripeItemReference } from "@hype-charms/types";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../+state";
 
 const AllProductsModule = dynamic<AllProductsModuleProps>(() => import("../../containers/home/all-products.component").then(data => data.AllProductsModule))
 
@@ -19,13 +21,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
     return { props: { products: await products } }
 }
 export default function CheckoutPage({ products }: { products: StripeItemReference<ProductMetadata>[] }) {
+
     const mobile = useMobileContext()
+    const shipping_data = useAppSelector(state => state.shippingReducer.shipping_data)
     return (
         <>
             <Layout>
                 <>
                     <EventHeaderComponent />
-                    {!mobile ? <CheckoutPageComponent /> : <MobileCheckoutPageComponent />}
+                    {!mobile ? <CheckoutPageComponent shipping_data={shipping_data} /> : <MobileCheckoutPageComponent />}
                     {products ? <div className="m-auto xl:max-w-[95vw] lg:max-w-[95vw] md:max-w-[95vw] max-w-full ">
                         <AllProductsModule products={products} />
                     </div> : <></>}

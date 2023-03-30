@@ -1,3 +1,5 @@
+import { ProductMetadata } from "../product";
+
 export class CartProduct {
     default_price?: string;
     description?: string;
@@ -6,6 +8,7 @@ export class CartProduct {
     name?: string;
     quantity?: number;
     unit_amount?: number | null;
+    metadata?: ProductMetadata;
     constructor(partial: Partial<CartProduct>) {
         Object.assign(this, partial);
     }

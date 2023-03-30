@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/gradient.css";
 import type { AppType } from "next/dist/shared/lib/utils";
 import { store, useAppSelector } from "../+state";
 import { Provider } from 'react-redux'
@@ -14,13 +15,14 @@ import dynamic from "next/dynamic";
 import { EmailListNotificationProps } from "../components/notifications/email-notification.component";
 import { CheckoutNotificationProps } from "../components/notifications/checkout-notifications.component";
 import { StripeItemReference, SubState } from "@hype-charms/types";
+import { useFetchShippingInfo, useLoadGeolocation } from "../+state/hooks/shipping.hooks";
 
 const EmailListNotificationComponent = dynamic<EmailListNotificationProps>(() => import("../components/notifications/email-notification.component").then((data) => data.EmailListNotificationComponent))
 const CheckoutNotificationComponent = dynamic<CheckoutNotificationProps>(() => import("../components/notifications/checkout-notifications.component").then((data) => data.CheckoutNotificationComponent))
 
 fontawesome.library.add(faBars)
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = ({ Component, pageProps }: any) => {
   const router = useRouter()
   const [query, setQuery] = useState<{ verified?: SubState, checkout?: string }>({});
   useEffect(() => {

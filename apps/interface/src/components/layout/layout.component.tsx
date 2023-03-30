@@ -5,10 +5,24 @@ import { EmailListModule } from "../emails/email-list-modal"
 import Head from "./head/Head"
 import { FooterComponent } from "../footer/footer.component"
 import { MetaProps } from "../../models"
+import { useFetchShippingInfo, useLoadGeolocation } from "../../+state/hooks/shipping.hooks"
+import { useAppSelector } from "../../+state"
 
 export const Layout: FC<{ children: JSX.Element, customMeta?: MetaProps, shrinkHeader?: boolean }> = ({ children, customMeta, shrinkHeader }): JSX.Element => {
 
     const [marketingPopover, setMarketingPopover] = useState<boolean>(false);
+    const loadLocation = useLoadGeolocation();
+    const cart = useAppSelector(state => state.cartReducer);
+    const loadShipping = useFetchShippingInfo();
+    const shipping_data = useAppSelector(state => state.shippingReducer.shipping_data);
+
+    useEffect(() => {
+        loadShipping();
+        console.log(shipping_data);
+    }, [cart])
+    useEffect(() => {
+        loadLocation();
+    }, [])
 
     useEffect(() => {
         const data = window.localStorage.getItem('first-visit');

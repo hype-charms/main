@@ -4,13 +4,15 @@ import applicationReducer from './reducers/application.reducer'
 import productsReducer from './reducers/products.reducer'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import productPackReducer from './reducers/product-pack.reducer'
+import shippingReducer from './reducers/shipping.reducer'
 
 export const store = configureStore({
     reducer: {
         cartReducer,
         applicationReducer,
         productsReducer,
-        productPackReducer
+        productPackReducer,
+        shippingReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 })

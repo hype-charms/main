@@ -103,8 +103,7 @@ model inventory_dto {
 }
 
 model order_dto {
-    /// Multiple data types found: String: 87.9%, String (ObjectId): 12.1% out of 33 sampled entries
-    id          Json              @id @map("_id")
+    id          String            @id @map("_id")
     /// Multiple data types found: Int: 12.1%, BigInt: 87.9% out of 33 sampled entries
     amount_paid Json
     billing     OrderListBilling

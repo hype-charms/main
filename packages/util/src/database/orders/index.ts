@@ -5,12 +5,12 @@ import { prisma } from "../index"
 
 export namespace orders {
     //GET
-    // export const retreiveOrderById = async (order_ids: string[], ): Promise<order_dto[] | undefined> => {
-    //     return await prisma?.order_dto.findMany({ where: { id: { in: order_ids } } }).then((data) => {
-    //         prisma?.$disconnect()
-    //         return data
-    //     });
-    // }
+    export const retreiveOrderById = async (order_ids: string[],): Promise<order_dto[] | undefined> => {
+        return await prisma?.order_dto.findMany({ where: { id: { in: order_ids } } }).then((data) => {
+            prisma?.$disconnect()
+            return data
+        });
+    }
 
     export const retreiveAllOrders = async (): Promise<order_dto[] | undefined> => {
         return await prisma?.order_dto.findMany().then((data) => {
