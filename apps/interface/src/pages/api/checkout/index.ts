@@ -2,11 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { products, customer, email } from "@hype-charms/util"
 import Stripe from "stripe";
-import { Product, ShippingData } from "@hype-charms/types";
+import { BookingQuoteDto, Product, ShippingData } from "@hype-charms/types";
 
 const checkout = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
-        const { line_items, _email, shippingData } = req.body as { line_items: any, _email: string, shippingData: ShippingData}
+        const { line_items, _email, shippingData } = req.body as { line_items: any, _email: string, shippingData: BookingQuoteDto}
         if (!line_items) {
             throw new Error("line_items is undefined")
         }
