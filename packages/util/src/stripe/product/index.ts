@@ -1,4 +1,4 @@
-import { Currency, StripeItemReference, PackMetadata, ProductMetadata, ProductType, ProductCategories, PriceReference } from "@hype-charms/types";
+import { Currency, StripeItemReference, PackMetadata, ProductMetadata, ProductType, ProductCategories, PriceReference, ShippingData, BookingQuoteDto } from "@hype-charms/types";
 import { Stripe } from "stripe";
 import { inventory } from "../../database";
 import { stripe } from "../index"
@@ -141,21 +141,23 @@ export namespace products {
         line_items: Stripe.Checkout.SessionCreateParams.LineItem[],
         domainURL: string | undefined,
         promotion?: string,
-        customer_email?: string
+        customer_email?: string,
+        shipping_data: BookingQuoteDto
     }
-    export const generateStipeCheckoutSession = async ({ line_items, domainURL, promotion, customer_email }: NewCustomerCheckoutProps): Promise<Stripe.Checkout.Session | null> => {
+    export const generateStipeCheckoutSession = async ({ line_items, domainURL, promotion, customer_email, shipping_data }: NewCustomerCheckoutProps): Promise<Stripe.Checkout.Session | null> => {
         try {
+            console.log(shipping_data);
             return stripe.checkout.sessions.create({
                 customer_email,
                 mode: "payment",
                 shipping_address_collection: { allowed_countries: ["AU"] },
-                shipping_options,
                 payment_method_types: ["afterpay_clearpay", "card"],
                 line_items,
                 discounts: [{ promotion_code: promotion }],
                 customer_creation: "always",
                 success_url: `${domainURL}?checkout="success"`,
                 cancel_url: `${domainURL}/checkout`,
+                shipping_options: generateShippingData(shipping_data),
             });
         } catch (err: any) {
             console.log(`⚠️  Create stripe checkout failed `, err.message);
@@ -167,15 +169,16 @@ export namespace products {
         line_items: Stripe.Checkout.SessionCreateParams.LineItem[],
         domain_url: string | undefined,
         promotion?: string,
-        customer_id?: string
+        customer_id?: string,
+        shipping_data: BookingQuoteDto
     }
-    export const generateStripeCheckoutSessionWithCustomer = async ({ line_items, domain_url, promotion, customer_id }: ExistingCustomerCheckoutProps): Promise<Stripe.Checkout.Session | null> => {
+    export const generateStripeCheckoutSessionWithCustomer = async ({ line_items, domain_url, promotion, customer_id, shipping_data }: ExistingCustomerCheckoutProps): Promise<Stripe.Checkout.Session | null> => {
         try {
             return stripe.checkout.sessions.create({
                 customer: customer_id,
                 mode: "payment",
                 shipping_address_collection: { allowed_countries: ["AU"] },
-                shipping_options,
+                shipping_options: generateShippingData(shipping_data),
                 payment_method_types: ["afterpay_clearpay", "card"],
                 line_items,
                 discounts: [{ promotion_code: promotion }],
@@ -189,17 +192,17 @@ export namespace products {
         }
     }
 
-    const shipping_options: Stripe.Checkout.SessionCreateParams.ShippingOption[] = [{
-        shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 0, currency: 'aud' },
-            display_name: 'Free shipping',
-            delivery_estimate: {
-                minimum: { unit: 'business_day', value: 5 },
-                maximum: { unit: 'business_day', value: 7 },
+    const generateShippingData = (shipping_data: BookingQuoteDto): Stripe.Checkout.SessionCreateParams.ShippingOption[] =>  [{
+            shipping_rate_data: {
+                type: 'fixed_amount',
+                fixed_amount: { amount: Math.round(shipping_data.total * 100), currency: 'aud' },
+                display_name: 'standard shipping',
+                delivery_estimate: {
+                    minimum: { unit: 'business_day', value: 5 },
+                    maximum: { unit: 'business_day', value: 7 },
+                },
             },
-        },
-    }];
+        }]
 
     export const fetchAllProductReferences = async (): Promise<StripeItemReference[] | null> => {
         const prices = await fetchPrices();

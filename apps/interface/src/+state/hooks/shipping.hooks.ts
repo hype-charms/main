@@ -2,7 +2,7 @@ import { BookingDto, BookingQuoteDto, Geolocation } from "@hype-charms/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "..";
-import { loadLocation, loadShippingInfo } from "../actions";
+import * as shippingActions from "../actions/shipping.actions";
 
 export function useLoadGeolocation() {
     const dispatch = useDispatch();
@@ -13,7 +13,19 @@ export function useLoadGeolocation() {
                 method: "GET",
                 headers: { "content-type": "application/json" }
             }).then(data => data.json()).catch(err => console.log(err)) as Geolocation;
-            dispatch(loadLocation(data))
+            dispatch(shippingActions.loadLocation(data))
+        }
+    }, [dispatch])
+}
+
+export function useLoadGeolocationFromLocal() {
+    const dispatch = useDispatch();
+    return useCallback(() => {
+        const data = window.localStorage.getItem('location');
+        if (data) {
+            console.log(data);
+            const cart: Geolocation = JSON.parse(data);
+            dispatch(shippingActions.loadLocation(cart));
         }
     }, [dispatch])
 }
@@ -24,13 +36,13 @@ export function useFetchShippingInfo() {
     const cartItems = useAppSelector(state => state.cartReducer.cart.cartItems);
     return useCallback(async () => {
         if (!location || cartItems.length === 0) {
-            return;
+            return console.log('location or cart is undefineds');
         }
         const data = await fetch(`/api/shipping`, {
             method: "POST",
             body: JSON.stringify({ items: cartItems, location }),
             headers: { "content-type": "application/json" }
         }).then(data => data.json()).catch(err => console.log(err)) as BookingQuoteDto;
-        dispatch(loadShippingInfo(data));
+        dispatch(shippingActions.loadShippingInfo(data));
     }, [dispatch])
 }

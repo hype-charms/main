@@ -2,30 +2,51 @@ import Link from "next/link"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { CartProduct, Currency } from "../../models";
 import { formatPrice, loadCheckout } from "@hype-charms/client"
-import { BookingQuoteDto } from "@hype-charms/types";
-import Image from "next/image";
+import { useAppSelector } from "../../+state";
+import { useFetchShippingInfo, useLoadGeolocation } from "../../+state/hooks/shipping.hooks";
 
 
-export const CheckoutSummaryComponent = ({ cart, shipping_data }: { cart: CartProduct[], shipping_data: BookingQuoteDto | null | undefined }) => {
+export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
 
-    const [shipping, setShipping] = useState<string>();
-    const [subTotal, setSubTotal] = useState<string>();
-    const [total, setTotal] = useState<string>();
+    const [shipping, setShipping] = useState<number>();
+    const [subTotal, setSubTotal] = useState<number>();
+    const [total, setTotal] = useState<number>();
     const [emailForm, setEmailForm] = useState<string | undefined>(undefined);
     const [formIsInvalid, setFormInvalid] = useState<boolean>(true);
     const [loadingShippingQuote, setLoadingShippingQuote] = useState<boolean>();
+    const loadLocation = useLoadGeolocation();
+    const shipping_data = useAppSelector(state => state.shippingReducer.shipping_data);
+    const location = useAppSelector(state => state.shippingReducer.geo_location);
+
+    const loadShipping = useFetchShippingInfo();
 
     useEffect(() => {
         const subTotal = cart?.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)!
-        const shipping = 800;
-        const total = subTotal + shipping;
-        setShipping(formatPrice(shipping, Currency.AUD, 1));
-        setSubTotal(formatPrice(subTotal, Currency.AUD, 1))
-        setTotal(formatPrice(total, Currency.AUD, 1))
+        setSubTotal(subTotal);
     }, [cart])
 
     useEffect(() => {
-        setLoadingShippingQuote(!shipping_data)
+        if (!location) {
+            loadLocation();
+        }
+    }, [location])
+
+    useEffect(() => {
+        if (location) {
+            loadShipping();
+        }
+    }, [location]);
+
+    useEffect(() => {
+        if (shipping_data && shipping_data.total) {
+            setLoadingShippingQuote(false);
+            setShipping(shipping_data.total * 100);
+            if (shipping && subTotal) { 
+                setTotal(shipping + subTotal)
+            }
+        } else {
+            setLoadingShippingQuote(true);
+        }
     }, [shipping_data])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,23 +57,23 @@ export const CheckoutSummaryComponent = ({ cart, shipping_data }: { cart: CartPr
     const submit = (event: FormEvent<HTMLFormElement>) => {
         if (formIsInvalid) return
         event.preventDefault();
-        loadCheckout(cart, process.env.NEXT_PUBLIC_CLIENT_URL!, emailForm)
+        loadCheckout(cart, process.env.NEXT_PUBLIC_CLIENT_URL!, shipping_data, emailForm)
     }
 
     return (
         <div className={CheckoutClasses.buttonContainer}>
             <h3 className="text-start w-full text-xl">Summary</h3>
-            <span className={`loaded w-full flex flex-row rounded`}>
+            {subTotal ? <span className={`loaded w-full flex flex-row rounded`}>
                 <p className="opacity-60 text-start w-full font-bold">Sub total: </p>
-                <p className="text-start">{subTotal}</p>
-            </span>
-            {!loadingShippingQuote ? <span id="fade-in" className={`loaded w-full flex flex-row rounded`}>
+                <p className="text-start">{formatPrice(subTotal, Currency.AUD, 1)}</p>
+            </span> : <span className={` loading w-full opacity-20 flex flex-row rounded h-14`} />}
+            {!loadingShippingQuote && shipping ? <span id="fade-in" className={`loaded w-full flex flex-row rounded`}>
                 <p className="opacity-60 text-start w-full font-bold">Package & Handling: </p>
-                <p className="text-start">{shipping}</p>
+                <p className="text-start">{formatPrice(shipping, Currency.AUD, 1)}</p>
             </span> : <span id="fade-in" className={` loading w-full opacity-20 flex flex-row rounded h-6`} />}
-            {!loadingShippingQuote ? <span className={`loaded w-full flex flex-row border-y-accent-one border-y-2 py-3`}>
+            {!loadingShippingQuote && total ? <span className={`loaded w-full flex flex-row border-y-accent-one border-y-2 py-3`}>
                 <p className="opacity-60 text-start w-full font-bold">Total: </p>
-                <p className="text-start">{total}</p>
+                <p className="text-start">{formatPrice(total, Currency.AUD, 1)}</p>
             </span> : <span className={` loading w-full opacity-20 flex flex-row rounded h-14`} />}
             <form className="w-full flex flex-col gap-2" onSubmit={e => submit(e)}>
                 <label htmlFor="email">Email</label>

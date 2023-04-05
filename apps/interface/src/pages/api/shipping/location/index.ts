@@ -11,17 +11,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
             } else {
                 res.status(500).send('')
             }
-            /**
-             * {
-                street_number: '23A',
-                route: 'Engler St',
-                locality: 'Booragoon',
-                administrative_area_level_2: 'Melville',
-                administrative_area_level_1: 'WA',
-                country: 'AU',
-                postal_code: '6154'
-                }
-             */
             break;
     }
 }

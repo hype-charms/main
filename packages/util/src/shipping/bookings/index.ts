@@ -17,11 +17,10 @@ export namespace bookings {
       }
     })
       .then(function (response) {
-        console.log("QUOTES RESPONSE :: ", response.data)
         return response.data
       })
       .catch(function (error) {
-        console.error(error.response.data.errors);
+        console.error("ERROR :: ",  error.response.data);
       });
   }
 
@@ -40,6 +39,7 @@ export namespace bookings {
       }
     })
       .then(function (response) {
+        console.log("CREATE BOOKING :: ", response);
         return response.data
       })
       .catch(function (error) {
@@ -54,7 +54,7 @@ export namespace bookings {
       }
     })
       .then(function (response) {
-        console.log(response);
+        console.log("TRACK BOOKING :: ", response);
         return response.data
       })
       .catch(function (error) {
@@ -74,8 +74,7 @@ const parseOrderTable = (_items: CartProduct[], location: Geolocation) => {
     requesting_site: process.env.CLIENT_URL,
     tailgate_pickup: false,
     tailgate_delivery: false,
-    items: [items
-    ],
+    items: JSON.stringify([items]),
     sender: sender_details,
     receiver: {
       address: `${location.street_number} ${location.route?.toLowerCase()}`,

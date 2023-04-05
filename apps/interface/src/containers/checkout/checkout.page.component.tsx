@@ -8,7 +8,7 @@ import { CheckoutSummaryComponent } from "../../components/checkout/checkout-sum
 import { formatPrice } from "@hype-charms/client";
 import { BookingQuoteDto } from "@hype-charms/types";
 
-export default function CheckoutPageComponent({shipping_data}: {shipping_data: BookingQuoteDto | null | undefined}) {
+export default function CheckoutPageComponent() {
 
     const cart = useAppSelector((state) => state.cartReducer.cart.cartItems);
 
@@ -65,7 +65,7 @@ export default function CheckoutPageComponent({shipping_data}: {shipping_data: B
                     </>
                     )}
                 </div>
-                <CheckoutSummaryComponent cart={cart} shipping_data={shipping_data} />
+                <CheckoutSummaryComponent cart={cart} />
             </div>
         </section>
     )

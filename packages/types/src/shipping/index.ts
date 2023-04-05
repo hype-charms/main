@@ -1,3 +1,4 @@
+import Stripe from "stripe"
 
 export interface Geolocation {
     street_number?: string,
@@ -8,3 +9,5 @@ export interface Geolocation {
     country?: string,
     postal_code?: string
 }
+
+export interface ShippingData extends Stripe.Checkout.Session.ShippingOption { }

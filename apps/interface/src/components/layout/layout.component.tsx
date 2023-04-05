@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useEffect, useMemo, useState } from "react"
 import { Header } from "../header/header.component"
 import { Popover } from "../popover/popover.component"
 import { EmailListModule } from "../emails/email-list-modal"
@@ -11,18 +11,6 @@ import { useAppSelector } from "../../+state"
 export const Layout: FC<{ children: JSX.Element, customMeta?: MetaProps, shrinkHeader?: boolean }> = ({ children, customMeta, shrinkHeader }): JSX.Element => {
 
     const [marketingPopover, setMarketingPopover] = useState<boolean>(false);
-    const loadLocation = useLoadGeolocation();
-    const cart = useAppSelector(state => state.cartReducer);
-    const loadShipping = useFetchShippingInfo();
-    const shipping_data = useAppSelector(state => state.shippingReducer.shipping_data);
-
-    useEffect(() => {
-        loadShipping();
-        console.log(shipping_data);
-    }, [cart])
-    useEffect(() => {
-        loadLocation();
-    }, [])
 
     useEffect(() => {
         const data = window.localStorage.getItem('first-visit');

@@ -10,8 +10,12 @@ export default async function StripeRedis(req: NextApiRequest, res: NextApiRespo
                 if (cachedItem) {
                     res.status(200).send(cachedItem)
                 } else {
-                    const product = await products.fetchProductReferenceById(productId)
-                    res.status(200).send(product);
+                const product = await products.fetchProductReferenceById(productId);
+                if (product && product.length > 0) {
+                    res.status(200).send(product[0]);
+                } else {
+                    res.status(404).send(null);
+                }
                 }
             } else {
                 const cachedItems = await product_cache.getCurrentRedisState()

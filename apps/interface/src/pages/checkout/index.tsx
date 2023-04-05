@@ -23,13 +23,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default function CheckoutPage({ products }: { products: StripeItemReference<ProductMetadata>[] }) {
 
     const mobile = useMobileContext()
-    const shipping_data = useAppSelector(state => state.shippingReducer.shipping_data)
     return (
         <>
             <Layout>
                 <>
                     <EventHeaderComponent />
-                    {!mobile ? <CheckoutPageComponent shipping_data={shipping_data} /> : <MobileCheckoutPageComponent />}
+                    {!mobile ? <CheckoutPageComponent /> : <MobileCheckoutPageComponent />}
                     {products ? <div className="m-auto xl:max-w-[95vw] lg:max-w-[95vw] md:max-w-[95vw] max-w-full ">
                         <AllProductsModule products={products} />
                     </div> : <></>}

@@ -6,7 +6,7 @@ export class BookingDto {
     requesting_site?: string;
     tailgate_pickup?: boolean;
     tailgate_delivery?: boolean;
-    items?: BookingItemDto[];
+    items?: string;
     sender?: BookingAddressDto;
     receiver?: BookingAddressDto;
     constructor(partial?: BookingDto) {
