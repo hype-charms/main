@@ -11,6 +11,7 @@ import { AllProductsModuleProps } from "../containers/home/all-products.componen
 import { ProductCategoriesProps } from "../containers/home/products-categories.component";
 import { StripeItemReference } from "@hype-charms/types";
 import { ProductDisplayProps } from "../components/products/product-display";
+import { useEffect } from "react";
 
 const Module = dynamic<ModuleProps>(() => import("../components/layout/module.component").then((data) => data.Module))
 const ProductsCategories = dynamic<ProductCategoriesProps>(() => import("../containers/home/products-categories.component").then((data) => data.ProductsCategories))
@@ -23,10 +24,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return { props: { products: await products } }
 }
 interface HomePageProps {
-  products: StripeItemReference<ProductMetadata>[],
-  // packs: StripeItemReference<PackMetadata>[],
+  products: StripeItemReference<ProductMetadata>[]
 }
 export default function HomePage({ products }: HomePageProps) {
+
   if (!products) return (
     <Layout>
       <PageLoaderComponent height="h-[100vh]" />

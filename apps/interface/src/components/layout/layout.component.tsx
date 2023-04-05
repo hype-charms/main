@@ -1,10 +1,12 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useEffect, useMemo, useState } from "react"
 import { Header } from "../header/header.component"
 import { Popover } from "../popover/popover.component"
 import { EmailListModule } from "../emails/email-list-modal"
 import Head from "./head/Head"
 import { FooterComponent } from "../footer/footer.component"
 import { MetaProps } from "../../models"
+import { useFetchShippingInfo, useLoadGeolocation } from "../../+state/hooks/shipping.hooks"
+import { useAppSelector } from "../../+state"
 
 export const Layout: FC<{ children: JSX.Element, customMeta?: MetaProps, shrinkHeader?: boolean }> = ({ children, customMeta, shrinkHeader }): JSX.Element => {
 

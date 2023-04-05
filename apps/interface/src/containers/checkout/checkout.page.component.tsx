@@ -6,6 +6,7 @@ import { QuantityButtonsComponent } from "../../components/button/quantity-butto
 import { CartProduct, Currency } from "../../models";
 import { CheckoutSummaryComponent } from "../../components/checkout/checkout-summary.component";
 import { formatPrice } from "@hype-charms/client";
+import { BookingQuoteDto } from "@hype-charms/types";
 
 export default function CheckoutPageComponent() {
 

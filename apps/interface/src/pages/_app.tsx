@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/gradient.css";
 import type { AppType } from "next/dist/shared/lib/utils";
 import { store, useAppSelector } from "../+state";
 import { Provider } from 'react-redux'
@@ -14,13 +15,14 @@ import dynamic from "next/dynamic";
 import { EmailListNotificationProps } from "../components/notifications/email-notification.component";
 import { CheckoutNotificationProps } from "../components/notifications/checkout-notifications.component";
 import { StripeItemReference, SubState } from "@hype-charms/types";
+import { useLoadGeolocation, useLoadGeolocationFromLocal } from "../+state/hooks/shipping.hooks";
 
 const EmailListNotificationComponent = dynamic<EmailListNotificationProps>(() => import("../components/notifications/email-notification.component").then((data) => data.EmailListNotificationComponent))
 const CheckoutNotificationComponent = dynamic<CheckoutNotificationProps>(() => import("../components/notifications/checkout-notifications.component").then((data) => data.CheckoutNotificationComponent))
 
 fontawesome.library.add(faBars)
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = ({ Component, pageProps }: any) => {
   const router = useRouter()
   const [query, setQuery] = useState<{ verified?: SubState, checkout?: string }>({});
   useEffect(() => {
@@ -31,7 +33,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <NotificationProvider>
         <MobileProdiver>
           <SearchRefLoader pageProps={pageProps}>
-            <CartLoader>
+            <LocalStorageProvider>
               <LoadProvider>
                 <>
                   <Component {...pageProps} />
@@ -39,7 +41,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                   {"checkout" in query && <CheckoutNotificationComponent status={query.checkout} />}
                 </>
               </LoadProvider>
-            </CartLoader>
+            </LocalStorageProvider>
           </SearchRefLoader>
         </MobileProdiver>
       </NotificationProvider>
@@ -49,15 +51,27 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
 export default MyApp;
 
-// TODO move to server
-// -->
-const CartLoader: FC<{ children: JSX.Element }> = ({ children }) => {
-  const loadCart = useLoadCartFromLocal()
-  const state = useAppSelector((state) => state.cartReducer)
-  useEffect(() => loadCart(), [])
+const LocalStorageProvider: FC<{ children: JSX.Element }> = ({ children }) => {
+  
+  const location = useAppSelector(state => state.shippingReducer.geo_location);
+  const loadLocation = useLoadGeolocation();
   useEffect(() => {
-    if (state.loaded) {
-      window.localStorage.setItem('cart', JSON.stringify(state.cart))
+    if (!location) {
+      loadLocation();
+    }
+  }, []);
+
+  const loadCart = useLoadCartFromLocal();
+  const loadLocationLocal = useLoadGeolocationFromLocal();
+  const state = useAppSelector((state) => state)
+  useEffect(() => {
+    loadLocationLocal();
+    loadCart()
+  }, [])
+  useEffect(() => {
+    if (state.cartReducer.loaded) {
+      window.localStorage.setItem('location', JSON.stringify(state.shippingReducer.geo_location));
+      window.localStorage.setItem('cart', JSON.stringify(state.cartReducer.cart));
     }
   }, [state]);
   return <>{children}</>
@@ -72,5 +86,4 @@ const SearchRefLoader: FC<{ children: JSX.Element, pageProps: {} }> = ({ childre
   }, [pageProps])
   return <>{children}</>
 }
-// <--
 

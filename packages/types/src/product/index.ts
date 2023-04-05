@@ -112,10 +112,17 @@ export enum ProductType {
 }
 
 export interface ProductMetadata {
-    category: ProductCategories;
-    images: string;
-    type: ProductType;
-    pack: ProductPacks;
+    weight?: number,
+    height?: number,
+    width?: number,
+    length?: number,
+    quantity?: number,
+    shipping_description?: string,
+    description?: string
+    category?: ProductCategories;
+    images?: string;
+    type?: ProductType;
+    pack?: ProductPacks;
 }
 
 export interface PackMetadata {
@@ -133,7 +140,8 @@ export enum ProductPacks {
 
 export enum ProductCategories {
     ANIME = "anime",
-    CARTOONS = "cartoons"
+    CARTOONS = "cartoons",
+    KICKS = "kicks"
 }
 
 export enum CategoryImages {
