@@ -21,7 +21,7 @@ export const ProductPageWrapperComponent: FC<ProductWrapperProps> = ({ items, lo
 
     const [filter, setFilter] = useState<ProductFilters>();
     const [filteredItems, setFilteredItems] = useState<StripeItemReference[] | undefined>(items)
-    useEffect(() => setFilteredItems(filterProducts(items, filter)), [filter])
+    useEffect(() => setFilteredItems(filterProducts(items, filter)), [filter, items])
     return (
         <ProductPageLayout
             title={title}

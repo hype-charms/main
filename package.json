@@ -5,9 +5,15 @@
   "main": "index.js",
   "packageManager": "npm@9.2.0",
   "scripts": {
-    "dev": "turbo run dev",
+    "admin:dev": "turbo run admin:dev",
+    "admin:start": "turbo run admin:start",
+    "admin:build": "turbo run admin:build",
+    "interface:dev": "turbo run interface:dev",
+    "interface:start": "turbo run interface:start",
+    "interface:build": "turbo run interface:build",
+    "lint": "turbo run lint",
     "build": "turbo run build",
-    "start": "turbo run start"
+    "postinstall": "prisma generate --schema=./packages/util/prisma/schema.prisma"
   },
   "workspaces": [
     "apps/*",
@@ -16,7 +22,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.12.0",
     "turbo": "^1.8.3",
     "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "prisma": "^4.12.0"
   }
 }

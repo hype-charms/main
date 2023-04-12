@@ -34,7 +34,7 @@ export namespace email {
         if (!email) { throw new Error("email is undefined") }
         const user = await retreiveByEmail(email);
         if (user && !user?.verified) {
-            return await prisma.email_dto.update({ where: { id: user.id }, data: { verified: true } }).then(async (data) => {
+            return await prisma.email_dto.update({ where: { id: user.id }, data: { verified: true } }).then(async () => {
                 prisma?.$disconnect()
                 return { result: SubState.USER_VERIFIED }
             })

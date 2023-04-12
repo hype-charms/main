@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w --outdir dist ",
     "prebuild": "tsc --outdir dist",
-    "build": "NODE_ENV=production webpack",
-    "postinstall": "prisma generate"
+    "build": "NODE_ENV=production webpack"
   },
   "author": "joseph walker",
   "license": "ISC",
@@ -17,7 +16,7 @@
     "@babel/preset-typescript": "^7.21.0",
     "@babel/register": "^7.21.0",
     "@hype-charms/types": "*",
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.11.0",
     "assert": "^2.0.0",
     "babel-loader": "^9.1.2",
     "base64-js": "^1.5.1",

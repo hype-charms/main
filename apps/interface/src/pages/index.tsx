@@ -19,8 +19,8 @@ const ProductsDisplay = dynamic<ProductDisplayProps>(() => import("../components
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await fetch(`${process.env.CLIENT_URL}/api/product`)
-  const products = await data.json()
-  return { props: { products: await products } }
+  const product = await data.json()
+  return { props: { products: await product } }
 }
 interface HomePageProps {
   products: StripeItemReference<ProductMetadata>[],

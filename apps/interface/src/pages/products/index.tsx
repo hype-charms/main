@@ -7,7 +7,7 @@ import { PackMetadata, ProductMetadata } from "../../models";
 import { PageLoaderComponent } from "../../components/loader/loader.component";
 import { StripeItemReference } from "@hype-charms/types";
 
-export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const [products, packs] = await Promise.all([
     fetch(`${process.env.CLIENT_URL}/api/product`),
     fetch(`${process.env.CLIENT_URL}/api/product`),

@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { GetServerSideProps } from "next"
 import { Layout } from "../../components/layout/layout.component";
 import CheckoutPageComponent from '../../containers/checkout/checkout.page.component'

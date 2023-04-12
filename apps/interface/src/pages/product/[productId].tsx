@@ -8,7 +8,7 @@ import { MobileCharmPageComponent } from "../../containers/charm/mobile-charm.pa
 import { useMobileContext } from "../../context/mobile.context";
 import { StripeItemReference } from "@hype-charms/types";
 
-export const getServerSideProps: GetServerSideProps = async ({ res, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const product = await fetch(`${process.env.CLIENT_URL}/api/product?productId=${query.productId}`).then(result => result.json());
   const [products] = await Promise.all([
     fetch(`${process.env.CLIENT_URL}/api/product/type/${ProductType.PRODUCT}`),

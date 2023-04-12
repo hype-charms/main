@@ -1,118 +1,171 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mongodb"
-    url      = env("DATABASE_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 type DisputesEvidence {
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    billing_address                Json?
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    customer_email_address         Json?
-    duplicate_charge_documentation String?
+  billing_address                String?
+  customer_email_address         String?
+  duplicate_charge_documentation String?
 }
 
 type DisputesEvidenceDetails {
-    /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
-    due_by       Json
-    has_evidence Boolean
-    past_due     Boolean
+  /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
+  due_by       Json
+  has_evidence Boolean
+  past_due     Boolean
+}
+
+type OrderDtoBilling {
+  address OrderDtoBillingAddress
+  email   String
+  name    String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  phone   String?
+}
+
+type OrderDtoBillingAddress {
+  city        String
+  country     String
+  line1       String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  line2       String?
+  postal_code String
+  state       String
+}
+
+type OrderDtoOutcome {
+  network_status String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  reason         Json?
+  risk_level     String
+  risk_score     Int
+  seller_message String
+  type           String
+}
+
+type OrderDtoShipping {
+  address         OrderDtoShippingAddress
+  carrier         String
+  name            String
+  phone           String
+  status          String
+  tracking_number String
+}
+
+type OrderDtoShippingAddress {
+  city        String
+  country     String
+  line1       String
+  line2       String
+  postal_code String
+  state       String
 }
 
 type OrderListBilling {
-    address OrderListBillingAddress
-    email   String?
-    name    String?
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    phone   Json?
+  address OrderListBillingAddress
+  email   String?
+  name    String?
+  phone   String?
 }
 
 type OrderListBillingAddress {
-    city        String?
-    country     String?
-    line1       String?
-    line2       String?
-    postal_code String?
-    state       String?
+  city        String?
+  country     String?
+  line1       String?
+  line2       String?
+  postal_code String?
+  state       String?
 }
 
 type OrderListOutcome {
-    network_status String
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    reason         Json?
-    risk_level     String
-    /// Multiple data types found: Int: 12.1%, BigInt: 87.9% out of 33 sampled entries
-    risk_score     Json
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    rule           Json?
-    seller_message String
-    type           String
+  network_status String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  reason         Json?
+  risk_level     String
+  /// Multiple data types found: Int: 12.1%, BigInt: 87.9% out of 33 sampled entries
+  risk_score     Json
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  rule           Json?
+  seller_message String
+  type           String
 }
 
 type OrderListShipping {
-    address         OrderListShippingAddress?
-    carrier         String?
-    name            String?
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    phone           Json?
-    status          String?
-    tracking_number String?
+  address         OrderListShippingAddress?
+  carrier         String?
+  name            String?
+  phone           String?
+  status          String?
+  tracking_number String?
 }
 
 type OrderListShippingAddress {
-    city        String
-    country     String
-    line1       String
-    line2       String?
-    postal_code String
-    state       String
+  city        String
+  country     String
+  line1       String
+  line2       String?
+  postal_code String
+  state       String
 }
 
 model disputes {
-    /// Multiple data types found: String: 88.9%, String (ObjectId): 11.1% out of 9 sampled entries
-    id                   Json                    @id @map("_id")
-    /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
-    amount               Json
-    charge               String
-    /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
-    created              Json
-    evidence             DisputesEvidence
-    evidence_details     DisputesEvidenceDetails
-    id_                  String?                 @map("id")
-    is_charge_refundable Boolean
-    /// Could not determine type: the field only had null or empty values in the sample set.
-    network_reason_code  Json?
+  id                   String                  @id @map("_id")
+  /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
+  amount               Json
+  charge               String
+  /// Multiple data types found: Int: 11.1%, BigInt: 88.9% out of 9 sampled entries
+  created              Json
+  evidence             DisputesEvidence
+  evidence_details     DisputesEvidenceDetails
+  id_                  String?                 @map("id")
+  is_charge_refundable Boolean
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  network_reason_code  Json?
 }
 
 model email_dto {
-    id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-    email              String
-    stripe_customer_id String?
-    verfified          Boolean?
-    verified           Boolean?
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  email              String
+  stripe_customer_id String?
+  verified           Boolean?
 }
 
-model inventory_dto {
-    id            String @id @map("_id")
-    current_stock BigInt
-    name          String
-    ordered_stock BigInt
+model inventory {
+  id            String @id @map("_id")
+  current_stock String
+  name          String
+  ordered_stock String
 }
 
 model order_dto {
-    /// Multiple data types found: String: 87.9%, String (ObjectId): 12.1% out of 33 sampled entries
-    id          Json              @id @map("_id")
-    /// Multiple data types found: Int: 12.1%, BigInt: 87.9% out of 33 sampled entries
-    amount_paid Json
-    billing     OrderListBilling
-    dispute     String?
-    disputed    Boolean
-    id_         String?           @map("id")
-    outcome     OrderListOutcome
-    receipt     String
-    shipping    OrderListShipping
-    status      String
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  amount_paid Int
+  billing     OrderDtoBilling
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  dispute     Json?
+  disputed    Boolean
+  id_         String           @map("id")
+  outcome     OrderDtoOutcome
+  receipt     String
+  shipping    OrderDtoShipping
+  status      String
+}
+
+model order_list {
+  id          String            @id @map("_id")
+  /// Multiple data types found: Int: 12.1%, BigInt: 87.9% out of 33 sampled entries
+  amount_paid Json
+  billing     OrderListBilling
+  dispute     String?
+  disputed    Boolean
+  id_         String?           @map("id")
+  outcome     OrderListOutcome
+  receipt     String
+  shipping    OrderListShipping
+  status      String
 }

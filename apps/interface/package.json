@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "interface:dev": "next dev",
+    "interface:start": "next start",
+    "interface:build": "next build",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

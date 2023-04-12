@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
 /**
  * Don't be scared of the generics here.

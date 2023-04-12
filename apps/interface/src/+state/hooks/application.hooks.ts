@@ -22,7 +22,7 @@ export function useLoadAppSearchReferences(): (items: StripeItemReference[]) => 
         const categories = Object.values(ProductCategories).map(x => ({ type: 'category', id: x, value: x }));
         const searchRef: SearchReference[] = items.map(x => ({ type: x.type, id: x.id, value: x.name }))
         dispatch(appActions.loadSearchReferences([...searchRef, ...categories]))
-    }, [])
+    }, [dispatch])
 }
 
 export function useNotificationReferenceManager() {

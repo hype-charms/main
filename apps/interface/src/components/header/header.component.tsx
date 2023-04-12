@@ -28,12 +28,12 @@ export const Header: FC<{ shrink?: boolean }> = ({ shrink }): JSX.Element => {
             setScreenPositionAtZero(false);
         }
         return () => window.removeEventListener('scroll', scroller)
-    }, [])
+    }, [shrink])
 
     useEffect(() => {
         const interval = window.setInterval(() => {
             if (count < 2) {
-                setCount(count + 1);
+                setCount(c => c + 1);
             } else {
                 setCount(0)
             }
@@ -59,7 +59,6 @@ export const Header: FC<{ shrink?: boolean }> = ({ shrink }): JSX.Element => {
                         screenPositionAtZero={screenPositionAtZero} />
                         :
                         <MobileCartButton
-                            cart={cart}
                             screenPositionAtZero={screenPositionAtZero} />
                     }
                     {mobile && <MobileMenuButton
@@ -79,7 +78,7 @@ interface MobileMenuButtonProps {
     showMenu: boolean;
 }
 const MobileMenuButton: FC<MobileMenuButtonProps> = ({ setShowMenu, showMenu }) => {
-    const onShowMenu = useCallback(() => setShowMenu(!showMenu), [setShowMenu])
+    const onShowMenu = useCallback(() => setShowMenu(!showMenu), [setShowMenu, showMenu])
     return (
         <button
             aria-label="opens a navigation menu"
@@ -92,10 +91,8 @@ const MobileMenuButton: FC<MobileMenuButtonProps> = ({ setShowMenu, showMenu }) 
     )
 }
 
-interface MobileCartButtonProps {
-    cart: CartProduct[], screenPositionAtZero: boolean
-}
-const MobileCartButton: FC<MobileCartButtonProps> = ({ cart, screenPositionAtZero }) => {
+interface MobileCartButtonProps {screenPositionAtZero: boolean}
+const MobileCartButton: FC<MobileCartButtonProps> = ({ screenPositionAtZero }) => {
     return (
         <Link href="/checkout" >
             <span className={HeaderClasses.cartButton}>

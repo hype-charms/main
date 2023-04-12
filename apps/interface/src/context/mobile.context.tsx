@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const MobileContext = createContext<boolean>(true)
 export const MobileProdiver = ({ children }: { children: JSX.Element }) => {
     const [mobile, setMobile] = useState<boolean>(false);
-    useEffect(() => setMobile(window.innerWidth < 800))
+    useEffect(() => setMobile(window.innerWidth < 800), [])
     const handleResize = () => {
         if (window.innerWidth > 800) {
             setMobile(false);

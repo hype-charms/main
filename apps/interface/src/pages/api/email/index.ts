@@ -12,7 +12,11 @@ export default async function EmailList(req: NextApiRequest, res: NextApiRespons
                 }
                 const email_table = await email.retreiveByEmail(req.query.email)
                     .catch(err => console.log(err));
-                res.status(200).send({ email: email_table?.email })
+                if (email_table) {
+                    res.status(200).send({ email: email_table?.email })
+                } else {
+                    res.status(500);
+                }
             } catch (err) {
                 console.log(err);
                 res.status(500).send(err)

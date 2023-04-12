@@ -30,7 +30,7 @@ export default function CheckoutPageComponent() {
             <div className={CartClasses.checkoutItemsContainer}>
                 <div className={CheckoutClasses.itemWrapper}>
                     {cart?.map((item, idx) => <>
-                        <div className={CartClasses.productRow}>
+                        <div key={idx}  className={CartClasses.productRow}>
                             <div>
                                 <Image src={(item?.images && item?.images[0]) ?? ''} alt="" height={200} width={200} />
                             </div>
@@ -79,7 +79,7 @@ const CheckoutClasses = {
 const CartClasses = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     checkoutItemsContainer: ` container m-auto flex flex-row justify-start gap-2 items-start pb-12 pt-6`,
-    wrapper: (showCart: boolean) => ` overflow-scroll pt-20`,
+    wrapper: ` overflow-scroll pt-20`,
     productRow: ` min-h-20 w-full mt-2 flex flex-row items-center max-w-[90vw] gap-y-2`,
     controlButton: ` h-full w-6`,
     controlsContainer: `flex flex-row min-w-[10rem] justify-start items-center gap-3`,

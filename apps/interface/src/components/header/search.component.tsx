@@ -25,9 +25,13 @@ export const SearchComponent: FC<{ screenPositionAtZero: boolean, items: StripeI
         return output
     }
 
+    const findRefs = useCallback(() => {
+        return findAllReferences(value);
+    }, [findAllReferences])
+
     const runSearch = useCallback(() => {
         if (items) {
-            const results = findAllReferences(value);
+            const results = findRefs();
             setResults(results);
         }
     }, [items, value])

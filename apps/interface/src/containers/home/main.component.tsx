@@ -63,7 +63,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                     </div>
                     <div id="accessory-pack" className={MainClasses.accessoryPack}>
                         <div id="accessory-pack-container" className={MainClasses.accessoryPackContainer}>
-                            {products.length > 0 && products.filter(x => x.metadata?.pack === packs[count]?.metadata?.packName).slice(0, 4).map((item, idx) => {
+                            {products.length > 0 && products.filter(x => x.metadata?.pack === packs[count]?.metadata?.packName).slice(0, 4).map((item) => {
                                 return <button
                                     id={item.name}
                                     type="button"
@@ -92,7 +92,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                         <Image
                             priority
                             className={`${MainClasses.backgroundImage(hover)} `}
-                            src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''}
+                            src={backgroundImages[packs[count]?.metadata?.packName]?.src ?? ''}
                             alt=""
                             width={2000}
                             height={1900}
@@ -103,7 +103,7 @@ export const MainComponent: FC<MainComponentProps> = ({ products, packs }): JSX.
                             <Image
                                 priority
                                 className={`${MainClasses.backgroundImage(hover)} `}
-                                src={backgroundImages[packs[count]?.metadata?.packName!]?.src ?? ''}
+                                src={backgroundImages[packs[count]?.metadata?.packName]?.src ?? ''}
                                 alt=""
                                 width={1000}
                                 height={1600}

@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next"
 import { useEffect } from "react";
 import { SubState } from "../../models";
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     const { type, index } = query;
     if (typeof type === "string" && JSON.parse(type) == "verify") {
         const data = await fetch(`${process.env.CLIENT_URL}/api/email`, {
@@ -26,7 +26,7 @@ export default function EmailListComponent({ data }: EmaiListProps) {
         } else {
             window.location.href = `${process.env.NEXT_PUBLIC_CLIENT_URL}?verified=${SubState.NOT_FOUND}`
         }
-    }, [])
+    }, [data])
 
     return <></>
 }

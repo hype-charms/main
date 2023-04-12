@@ -13,7 +13,8 @@ export const NotificationProvider: FC<{ children: JSX.Element }> = ({ children }
     const { notifications, addNotification, removeNotification } = useNotificationReferenceManager();
     const [elements, setElements] = useState<JSX.Element[] | null>();
 
-    useEffect(() => setElements(notifications?.map((notification) => <NotificationModalComponent
+    useEffect(() => setElements(notifications?.map((notification, idx) => <NotificationModalComponent
+        key={idx}
         width={300}
         time={6000}
         notificationRef={notification}

@@ -13,7 +13,7 @@ export const CheckoutSummaryComponent = ({ cart }: { cart: CartProduct[] }) => {
     const [formIsInvalid, setFormInvalid] = useState<boolean>(true);
 
     useEffect(() => {
-        const subTotal = cart?.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)!
+        const subTotal = cart?.map(x => x.unit_amount! * x.quantity!).reduce((x, y) => x! + y!)
         const shipping = 800;
         const total = subTotal + shipping;
         setShipping(formatPrice(shipping, Currency.AUD, 1));

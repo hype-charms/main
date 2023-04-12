@@ -19,7 +19,7 @@ export const EventHeaderComponent: FC = (): JSX.Element => {
     return (
         <Link href={data[count]?.href ?? '/404'}>
             <div key={count} className="h-12 w-full bg-secondary-light shadow-md flex flex-row items-center justify-center cursor-pointer">
-                <h3 id="event-header">"{data[count]?.title}"</h3>
+                <h3 id="event-header">&quot;{data[count]?.title}&quot;</h3>
             </div>
         </Link>
     )

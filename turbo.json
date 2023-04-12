@@ -4,6 +4,7 @@
         "prebuild": {
             "cache": false,
             "dependsOn": [
+                "^lint",
                 "^prebuild"
             ],
             "outputs": [
@@ -12,6 +13,7 @@
         },
         "build": {
             "dependsOn": [
+                "^lint",
                 "^prebuild",
                 "^build"
             ],
@@ -20,12 +22,50 @@
                 ".build/**"
             ]
         },
-        "dev": {
+        "interface:build": {
+            "dependsOn": [
+                "^lint",
+                "^prebuild",
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                ".build/**"
+            ]
+        },
+        "admin:build": {
+            "dependsOn": [
+                "^lint",
+                "^prebuild",
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                ".build/**"
+            ]
+        },
+        "postinstall": {
+            "dependsOn": [
+                "^lint",
+                "^prebuild",
+                "^build"
+            ]
+        },
+        "interface:dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "admin:dev": {
             "cache": false,
             "persistent": true
         },
         "lint": {},
-        "start": {
+        "interface:start": {
+            "dependsOn": [
+                "^build"
+            ]
+        },
+        "admin:start": {
             "dependsOn": [
                 "^build"
             ]

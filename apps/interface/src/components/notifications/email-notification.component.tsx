@@ -14,7 +14,7 @@ export const EmailListNotificationComponent: FC<EmailListNotificationProps> = ({
                 setTimeout(() => notificationContext?.addNotification({ text: "Your promo code will be available at the checkout", id: "5" }), 1000)
                 break;
         }
-    }, [subStatus])
+    }, [subStatus, notificationContext, ])
     return <>
     </>
 }

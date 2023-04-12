@@ -1,4 +1,4 @@
-import { cache, products, product_cache } from "@hype-charms/util";
+import { products, product_cache } from "@hype-charms/util";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function StripeRedis(req: NextApiRequest, res: NextApiResponse) {
@@ -14,15 +14,15 @@ export default async function StripeRedis(req: NextApiRequest, res: NextApiRespo
                     res.status(200).send(product);
                 }
             } else {
-                const cachedItems = await product_cache.getCurrentRedisState()
-                if (cachedItems) {
-                    res.status(200).send(cachedItems);
-                } else {
+                // const cachedItems = await product_cache.getCurrentRedisState()
+                // if (cachedItems) {
+                //     res.status(200).send(cachedItems);
+                // } else {
                     const result = await products.fetchAllProductReferences()
                         .then(data => product_cache.loadProductsIntoRedis(data)).catch(err => console.log(err))
                     res.status(200).send(result);
-                }
-                cache.disconnect();
+                // }
+                // cache.disconnect();
             }
             break;
     }

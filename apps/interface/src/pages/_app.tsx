@@ -25,7 +25,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const [query, setQuery] = useState<{ verified?: SubState, checkout?: string }>({});
   useEffect(() => {
     setQuery(router.query)
-  }, [])
+  }, [router.query])
   return (
     <Provider store={store}>
       <NotificationProvider>
@@ -54,22 +54,22 @@ export default MyApp;
 const CartLoader: FC<{ children: JSX.Element }> = ({ children }) => {
   const loadCart = useLoadCartFromLocal()
   const state = useAppSelector((state) => state.cartReducer)
-  useEffect(() => loadCart(), [])
+  useEffect(() => loadCart(), [loadCart])
   useEffect(() => {
     if (state.loaded) {
       window.localStorage.setItem('cart', JSON.stringify(state.cart))
     }
-  }, [state]);
+  }, [state, loadCart]);
   return <>{children}</>
 }
-const SearchRefLoader: FC<{ children: JSX.Element, pageProps: {} }> = ({ children, pageProps }) => {
+const SearchRefLoader: FC<{ children: JSX.Element, pageProps: object }> = ({ children, pageProps }) => {
   const loadSearchRefs = useLoadAppSearchReferences()
   useMemo(() => {
     const props = pageProps as { products: StripeItemReference[], packs: StripeItemReference[] }
     if (props?.products && props.packs && props?.packs.length > 0 && props?.products.length > 0) {
       loadSearchRefs([...props.packs, ...props.products])
     }
-  }, [pageProps])
+  }, [pageProps, loadSearchRefs])
   return <>{children}</>
 }
 // <--

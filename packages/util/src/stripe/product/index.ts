@@ -1,6 +1,6 @@
 import { Currency, StripeItemReference, PackMetadata, ProductMetadata, ProductType, ProductCategories, PriceReference } from "@hype-charms/types";
 import { Stripe } from "stripe";
-import { inventory } from "../../database";
+import { _inventory } from "../../database";
 import { stripe } from "../index"
 
 export namespace products {
@@ -58,7 +58,7 @@ export namespace products {
      * @returns stripe item references with current prices
      */
     export const addPricesToProducts = async (prices: PriceReference[], items: StripeItemReference[]): Promise<StripeItemReference[]> => {
-        let data: StripeItemReference[] = [];
+        const data: StripeItemReference[] = [];
         for (let i = 0; i < items.length; i++) {
             for (let x = 0; x < prices.length; x++) {
                 if (items[i]?.id === prices[x]?.product) {
@@ -78,7 +78,7 @@ export namespace products {
      * @returns updated products array with current inventory value
      */
     export const addInventoryToProducts = async (products: StripeItemReference[]): Promise<StripeItemReference[]> => {
-        const data = await inventory.retreiveAllInventory();
+        const data = await _inventory.retreiveAllInventory();
         if (data) {
             const references: StripeItemReference[] = [];
             for (let i = 0; i < data.length; i++) {
@@ -157,6 +157,7 @@ export namespace products {
                 success_url: `${domainURL}?checkout="success"`,
                 cancel_url: `${domainURL}/checkout`,
             });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.log(`⚠️  Create stripe checkout failed `, err.message);
             return null
@@ -183,6 +184,7 @@ export namespace products {
                 success_url: `${domain_url}?checkout="success"`,
                 cancel_url: `${domain_url}/checkout`,
             });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.log(`⚠️  Create stripe checkout failed `, err.message);
             return null
