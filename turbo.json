@@ -51,11 +51,19 @@
                 "^build"
             ]
         },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
         "interface:dev": {
             "cache": false,
             "persistent": true
         },
         "admin:dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "playground:dev": {
             "cache": false,
             "persistent": true
         },

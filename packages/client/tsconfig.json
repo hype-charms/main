@@ -9,14 +9,19 @@
     "emitDeclarationOnly": false,
     "declarationMap": true,
     "outDir": "dist",
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "jsx": "react"
   },
   "include": [
     "**/*.ts",
+    "**/*.tsx",
+    "webpack.config.js",
     ".eslintrc.js"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    ".turbo",
+    ".build",
   ]
 }

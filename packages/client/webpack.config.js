@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
+import path from "path";
+import Dotenv from "dotenv-webpack";
 
 module.exports = {
   // webpack optimization mode
@@ -9,19 +8,22 @@ module.exports = {
   watch: "development" === process.env.NODE_ENV,
 
   // entry files
-  entry: "./dist/index.js",
+  entry: "./src/index.ts",
 
   // output files and chunks
   output: {
-    path: path.resolve(__dirname, "./"),
-    filename: ".build/[name].js",
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
+    libraryTarget: "umd",
+    library: "@hypecharms/client",
+    umdNamedDefine: true,
   },
 
   // module/loaders configuration
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
@@ -40,7 +42,7 @@ module.exports = {
   // resolve files configuration
   resolve: {
     // file extensions
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
   // webpack optimizations
@@ -57,11 +59,6 @@ module.exports = {
         },
       },
     },
-  },
-  // development server configuration
-  devServer: {
-    port: 4000,
-    historyApiFallback: true,
   },
 
   // generate source map

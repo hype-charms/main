@@ -5,12 +5,15 @@
   "main": "index.js",
   "packageManager": "npm@9.2.0",
   "scripts": {
+    "packages:dev": "turbo run dev",
     "admin:dev": "turbo run admin:dev",
     "admin:start": "turbo run admin:start",
     "admin:build": "turbo run admin:build",
     "interface:dev": "turbo run interface:dev",
     "interface:start": "turbo run interface:start",
     "interface:build": "turbo run interface:build",
+    "playground:dev": "turbo run playground:dev",
+    "playground:build": "turbo run playground:build",
     "lint": "turbo run lint",
     "build": "turbo run build",
     "postinstall": "prisma generate --schema=./packages/util/prisma/schema.prisma"
