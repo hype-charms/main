@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    --scroll-behavior: smooth !important;
+    scroll-behavior: smooth !important;
+}
+
+#single-product-page {
+    margin-top: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: grid;
+    justify-items: center;
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.fa-secondary {
+    opacity: 50%;
+    fill: #0f766e;
+}
+
+#products-main {
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    margin: auto;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 330px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 530px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 800px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1000px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1440px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1840px) {
+    #products-main {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+#event-header {
+    animation: slide-down 1s;
+}
+
+#main-image-carousel {
+    animation: fade-in 1.5s;
+}
+
+#main-background-image-wrapper {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(30, 30, 30, 0.2), rgba(0, 0, 0, 0.4));
+}
+
+#accessory-pack-items-main {
+    animation: animate-pack-items 0.5s;
+}
+
+
+h1,
+h2,
+h3 {
+    font-family: 'Carter One', cursive;
+}
+
+h4,
+h5,
+h6,
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 300;
+}
+
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: var(--progressBar);
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    background-color: #3943b7;
+    width: 100%;
+    height: 5px;
+}
+
+#nprogress .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px var(--progressBar), 0 0 5px var(--progressBar);
+    opacity: 1;
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+}
+
+#slide-up {
+    animation: slide-up 0.6s ease-out;
+}
+
+#fade-out {
+    animation: fade-out 1s ease-out;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 100%
+    }
+
+    to {
+        opacity: 0%
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 20%
+    }
+
+    to {
+        opacity: 100%
+    }
+}
+
+@keyframes animate-pack-items {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-50px)
+    }
+
+    to {
+        transform: translateY(0px)
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(300px)
+    }
+
+    to {
+        opacity: 100%;
+        transform: translateY(0px)
+    }
+}

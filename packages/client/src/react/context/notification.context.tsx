@@ -1,16 +1,17 @@
 import { NotificationReference } from "@hype-charms/types";
-import React, { createContext, FC, useContext, useEffect, useState } from "react";
+import React, { createContext, FC, useContext, useState } from "react";
 import { NotificationModalComponent } from "../components";
+import styled from "styled-components";
 
 interface NotificationContextProps {
     addNotification: (notification: NotificationReference) => void,
     removeNotification: (notification: NotificationReference) => void,
-    notifications: NotificationReference[]
+    notifications: NotificationReference[],
 }
 
 export const NotificationContext = createContext<NotificationContextProps | null>(null);
 
-export const NotificationProvider: FC<{ children: JSX.Element }> = ({ children }) => {
+export const NotificationProvider: FC<{ children: JSX.Element, exitButtonSource: string }> = ({ children, exitButtonSource }) => {
     const [notifications, setNotifications] = useState<NotificationReference[]>([]);
 
     const addNotification = (notification: NotificationReference) => {
@@ -21,29 +22,37 @@ export const NotificationProvider: FC<{ children: JSX.Element }> = ({ children }
         setNotifications((notifications) => notifications.filter((n) => n.id !== notification.id));
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setNotifications((notifications) => notifications.filter((n) => !n.id));
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <NotificationContext.Provider value={{ addNotification, removeNotification, notifications }}>
             {children}
             {notifications &&
-        notifications.map((notification: NotificationReference) => (
-          <NotificationModalComponent
-            key={notification.id}
-            width={500}
-            time={5000}
-            notificationRef={notification}
-          />
-        ))}
+                <NotificationWrapper>
+                    {notifications.map((notification: NotificationReference) => (
+                        <NotificationModalComponent
+                            exitIconSrc={exitButtonSource}
+                            key={notification.id}
+                            width={500}
+                            time={5000}
+                            notificationRef={notification}
+                        />
+                    ))}
+                </NotificationWrapper>
+            }
+
         </NotificationContext.Provider>
     );
 };
+
+export const NotificationWrapper = styled.div`
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    z-index: 50;
+    gap: 6px;
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+`
 
 export const useNotificationContext = () => {
     const context = useContext(NotificationContext);

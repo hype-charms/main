@@ -1,18 +1,26 @@
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react"
-import { useNotificationContext } from "../context/notification.context";
+import { useNotificationContext } from "../../context/notification.context";
 import { NotificationReference } from "@hype-charms/types";
+import "../styles/globals.css"
+import { Container, ExitButton, NotificationContent, Timer } from "./templates";
+import { useThemeContext } from "../../context/theme.context";
 
 export interface NotificationModalProps {
     width: number;
     time: number;
     notificationRef: NotificationReference;
+    exitIconSrc: string;
 }
-export const NotificationModalComponent: FC<NotificationModalProps> = ({ width, time, notificationRef }) => {
+
+export const NotificationModalComponent: FC<NotificationModalProps> = ({ width, time, notificationRef, exitIconSrc }) => {
 
     const [borderWidth, setBorderWidth] = useState<number>(0);
     const [animation, setAnimation] = useState<string>("slide-up");
     const notificationContext = useNotificationContext();
+
+    const theme = useThemeContext();
+
     useEffect(() => setBorderWidth(0), [])
 
     useEffect(() => {
@@ -36,20 +44,19 @@ export const NotificationModalComponent: FC<NotificationModalProps> = ({ width, 
     }
 
     return (
-        <div id={animation} className="bg-accent-one h-20 overflow-clip px-3" style={{ width: `${width}px` }}>
-            <div className="absolute h-full border-b-4 border-b-primary" style={{ width: `${width - (borderWidth)}px` }}>
-            </div>
-            <div className="w-full h-full flex flex-row items-center justify-between px-2 bg-opacity-0">
-                <p className="text-primary">{notificationRef.text}</p>
-                <button
+        <Container theme={theme} id={animation} width={`${width}px`}>
+            <Timer theme={theme} width={`${width - (borderWidth)}px`}>
+            </Timer>
+            <NotificationContent>
+                <p>{notificationRef.text}</p>
+                <ExitButton
                     type="button"
                     aria-label="closes the notification"
-                    onClick={onCloseModal}
-                    className="flex flex-col justify-start h-full py-3">
-                    <Image src="/white-eye.svg" alt="" height={15} width={15} />
-                </button>
-            </div>
-        </div>
+                    onClick={onCloseModal}>
+                    <Image src={exitIconSrc} alt="" height={15} width={15} />
+                </ExitButton>
+            </NotificationContent>
+        </Container>
     )
 }
 

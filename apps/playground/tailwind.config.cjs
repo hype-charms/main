@@ -30,4 +30,4 @@ module.exports = {
     },
     fontFamily: { 'mono': ['"Nova Flat"', 'ui-monospace', 'SFMono-Regular'], 'sans': ['"Noto Sans"'] },
   },
-};
+}
