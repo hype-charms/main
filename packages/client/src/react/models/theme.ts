@@ -7,13 +7,30 @@ export interface HypeTheme {
     };
     colors: {
         "primary": string,
-        "primary-text": string,
         "secondary": string,
+        "secondary-dark": string,
+        "light-text": string,
+        "primary-text": string,
         "secondary-text": string,
         "secondary-light": string,
-        "secondary-dark": string,
         "accent-one": string,
         "accent-two": string,
+        "border": string,
+        "primary-text-light": string,
     };
     fontFamily: { 'mono': string[], 'sans': string[] };
+    ui_theme: {
+        borders: boolean;
+        rounded: boolean;
+        margins: string;
+        spacing: "compact" | "between";
+        icon_modifier: string;
+        header: {
+            shrink: boolean;
+            menu_configuration: "single" | "link-specific";
+            position: "fixed" | "static" | "absolute",
+            cart_configuration: "navigate" | "drop-down" | "side-menu",
+            height: string;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import { NotificationReference } from "@hype-charms/types";
 import React, { createContext, FC, useContext, useState } from "react";
-import { NotificationModalComponent } from "../components";
 import styled from "styled-components";
+import { NotificationModalComponent } from "../components/layout/layout.component/notification.modal";
 
 interface NotificationContextProps {
     addNotification: (notification: NotificationReference) => void,
