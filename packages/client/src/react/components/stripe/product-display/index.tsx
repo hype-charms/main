@@ -1,15 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import Image from 'next/image'
 import { Currency, StripeItemReference } from "@hype-charms/types";
-import { formatPrice, useThemeContext } from "@hype-charms/client";
 import { ProductContainer, ClipperContainer, ImageWrapper, TextContainer, TextCard, HeadingText, ParagraphText } from "./template";
+import { useThemeContext } from "../../../context";
+import { formatPrice } from "../../../../stripe";
 
 export interface StripeProductDisplayProps {
     product: StripeItemReference,
     id: string,
     size: "md" | "lg" | "xl"
 }
-export const StripeProductDisplayComponent: FC<StripeProductDisplayProps> = ({ product, id, size }): JSX.Element => {
+export const StripeProductDisplayComponent: FC<StripeProductDisplayProps> = ({ product, id }): JSX.Element => {
 
     const [itemState, setItemState] = useState(true);
     const theme = useThemeContext();

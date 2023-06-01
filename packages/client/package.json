@@ -2,10 +2,12 @@
   "name": "@hype-charms/client",
   "version": "1.0.0",
   "description": "hype-charms-libs",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w --outdir dist",
+    "playground:dev": "tsc -w --outdir dist ",
     "prebuild": "tsc --outdir dist",
     "build": "NODE_ENV=production webpack"
   },

@@ -45,36 +45,34 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
                         }) : header_content.navigation.map(({ href, title, sub_routes }, idx) => {
                             // renders when sub routes are defined
                             return (
-                                <>
-                                    <LinkSection id="link section" theme={theme}>
-                                        <FlexGrowLink id="link" theme={theme} key={idx} href={href} onMouseEnter={() => setDropdownMenu(idx)}>
-                                            {screenPositionAtZero ?
-                                                <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
-                                                <MainLinkTextLight style={{ opacity: "70%" }} theme={theme}>{title}</MainLinkTextLight>}
-                                        </FlexGrowLink>
-                                        <div style={{ paddingTop: "0.5rem" }}>
-                                            <NavigationMenuContainer active={idx === dropdown} theme={theme}>
-                                                {dropdown === idx && sub_routes?.map(({ href, title, childRoutes }, idx) => {
-                                                    return (
-                                                        <ul key={idx}><StandardLink href={href} >
-                                                            <SubLinkTextLight theme={theme}>{title}</SubLinkTextLight>
-                                                        </StandardLink>
-                                                            <ul>
-                                                                {childRoutes?.map(({ title, href }, idx2) => <li key={idx2}>
-                                                                    <StandardLink theme={theme} href={href}>{
-                                                                        screenPositionAtZero ?
-                                                                            <ChildLinkDark theme={theme}>{title}</ChildLinkDark> :
-                                                                            <ChildLinkLight theme={theme}>{title}</ChildLinkLight>
-                                                                    }</StandardLink>
-                                                                </li>)}
-                                                            </ul>
+                                <LinkSection id="link section" theme={theme} key={idx}>
+                                    <FlexGrowLink id="link" theme={theme} href={href} onMouseEnter={() => setDropdownMenu(idx)}>
+                                        {screenPositionAtZero ?
+                                            <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
+                                            <MainLinkTextLight style={{ opacity: "70%" }} theme={theme}>{title}</MainLinkTextLight>}
+                                    </FlexGrowLink>
+                                    <div style={{ paddingTop: "0.5rem" }}>
+                                        <NavigationMenuContainer active={idx === dropdown} theme={theme}>
+                                            {dropdown === idx && sub_routes?.map(({ href, title, childRoutes }, idx) => {
+                                                return (
+                                                    <ul key={idx}><StandardLink href={href} >
+                                                        <SubLinkTextLight theme={theme}>{title}</SubLinkTextLight>
+                                                    </StandardLink>
+                                                        <ul>
+                                                            {childRoutes?.map(({ title, href }, idx2) => <li key={`secondary ${idx2}`}>
+                                                                <StandardLink theme={theme} href={href}>{
+                                                                    screenPositionAtZero ?
+                                                                        <ChildLinkDark theme={theme}>{title}</ChildLinkDark> :
+                                                                        <ChildLinkLight theme={theme}>{title}</ChildLinkLight>
+                                                                }</StandardLink>
+                                                            </li>)}
                                                         </ul>
-                                                    )
-                                                })}
-                                            </NavigationMenuContainer>
-                                        </div>
-                                    </LinkSection>
-                                </>
+                                                    </ul>
+                                                )
+                                            })}
+                                        </NavigationMenuContainer>
+                                    </div>
+                                </LinkSection>
                             )
                         })}
                     </NavigationContainer>}
@@ -87,7 +85,7 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
     )
 }
 
-const PopupUnderlay = styled.div(({ theme, active }: { theme: HypeTheme, active: boolean }) => `
+const PopupUnderlay = styled.div(({ active }: { active: boolean }) => `
 opacity: ${active ? "20%" : "0%"};
 background-color: black;
 height: 100vh;
@@ -127,10 +125,11 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
         <>
 
             <HeaderWrapper theme={theme} position={theme?.ui_theme.header.position}>
-                {eventheader_content && <EventheaderComponent visible={!screenPositionAtZero} eventheader_content={eventheader_content} />}
+                <>
+                    {eventheader_content && <EventheaderComponent visible={!screenPositionAtZero} eventheader_content={eventheader_content} />}
+                </>
                 <HeaderContainer theme={theme} position={"static"} top={screenPositionAtZero}>
                     <LogoContainer theme={theme} top={screenPositionAtZero}>
-                        {/* <i className={header_content.logo} /> */}
                         <h2 style={{
                             fontSize: "35px",
                             color: !screenPositionAtZero ? theme?.colors["primary-text"] : theme?.colors["primary-text-light"],
@@ -138,45 +137,51 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
                             fontFamily: theme?.fontFamily.mono ?? ""
                             // @ts-ignore
                         }}>{header_content.brandName}</h2>
-                    </LogoContainer>
-                    {header_content.navigation && <NavigationContainer theme={theme}>
-                        <>
-                            {header_content.navigation.map(({ href, title }, idx) => {
-                                return <StandardLink onMouseEnter={() => setDropdownMenu(idx)} theme={theme} key={idx} href={href}>{
-                                    screenPositionAtZero ?
-                                        <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
-                                        <MainLinkTextLight style={{ opacity: "70%" }} theme={theme}>{title}</MainLinkTextLight>
-                                }</StandardLink>
-                            })}
-                        </>
-                    </NavigationContainer>}
+                    </LogoContainer >
+                    <>
+                        {header_content.navigation && <NavigationContainer theme={theme}>
+                            <>
+                                {header_content.navigation.map(({ href, title }, idx) => {
+                                    return <StandardLink onMouseEnter={() => setDropdownMenu(idx)} theme={theme} key={idx} href={href}>{
+                                        screenPositionAtZero ?
+                                            <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
+                                            <MainLinkTextLight style={{ opacity: "70%" }} theme={theme}>{title}</MainLinkTextLight>
+                                    }</StandardLink>
+                                })}
+                            </>
+                        </NavigationContainer>}
+                    </>
                     <HeaderControlsComponent top={screenPositionAtZero} theme={theme} />
                 </HeaderContainer>
                 {subheader_content !== null && <SubheaderComponent visible={!screenPositionAtZero} menuActive={renderNavMenu} subheader_content={subheader_content} />}
                 <MenuContainer active={renderNavMenu} theme={theme}>
-                    {header_content.navigation[dropdown]?.sub_routes?.map(({ href, title, childRoutes }, idx) => {
-                        return (
-                            <>
-                                <LinkMenuSection key={idx} theme={theme}>
-                                    <StandardLink id="link" theme={theme} href={href}>
-                                        <MainLinkTextLight theme={theme}>{title}</MainLinkTextLight>
-                                    </StandardLink>
-                                    <ul style={{ color: theme?.colors["secondary-light"] }}>
-                                        {childRoutes?.map((data, idx2) =>
-                                            <li key={idx2}>
-                                                <StandardLink id="link" theme={{ ...theme, ui_theme: { ...theme?.ui_theme, borders: false } }} href={href}>
-                                                    <ChildLinkLight style={{ opacity: "80%" }} theme={theme}>{data.title}</ChildLinkLight>
-                                                </StandardLink>
-                                            </li>
-                                        )}
-                                    </ul>
-                                </LinkMenuSection>
-                            </>
-                        )
-                    })}
+                    <>
+                        {header_content.navigation[dropdown]?.sub_routes?.map(({ href, title, childRoutes }, idx) => {
+                            return (
+                                <>
+                                    <LinkMenuSection key={idx} theme={theme}>
+                                        <StandardLink id="link" theme={theme} href={href}>
+                                            <MainLinkTextLight theme={theme}>{title}</MainLinkTextLight>
+                                        </StandardLink>
+                                        <ul style={{ color: theme?.colors["secondary-light"] }}>
+                                            {childRoutes?.map((data, idx2) =>
+                                                <li key={`secondary ${idx2}`}>
+                                                    <StandardLink id="link" theme={{ ...theme, ui_theme: { ...theme?.ui_theme, borders: false } }} href={href}>
+                                                        <ChildLinkLight style={{ opacity: "80%" }} theme={theme}>{data.title}</ChildLinkLight>
+                                                    </StandardLink>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </LinkMenuSection>
+                                </>
+                            )
+                        })}
+                    </>
                 </MenuContainer>
-                {renderNavMenu && <div id="fade-in" style={{ height: "100vh", width: "100vw", top: 0, left: 0, backgroundColor: "rgba(0,0,0,0.3)", position: "absolute", zIndex: "-10" }} onMouseEnter={() => setDropdownMenu(-1)}></div>}
-            </HeaderWrapper>
+                <>
+                    {renderNavMenu && <div id="fade-in" style={{ height: "100vh", width: "100vw", top: 0, left: 0, backgroundColor: "rgba(0,0,0,0.3)", position: "absolute", zIndex: "-10" }} onMouseEnter={() => setDropdownMenu(-1)}></div>}
+                </>
+            </HeaderWrapper >
         </>
     )
 }

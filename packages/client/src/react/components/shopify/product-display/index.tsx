@@ -1,17 +1,17 @@
 import React, { FC, useState } from "react";
 import Image from 'next/image'
 import { ShopifyItemReference } from "@hype-charms/types";
-import { useThemeContext } from "@hype-charms/client";
 import { ProductContainer, ClipperContainer, ImageWrapper, TextContainer, TextCard, HeadingText } from "./template";
+import { useThemeContext } from "../../../context";
 
 export interface ShopifyProductDisplayProps {
     product: ShopifyItemReference,
     id: string,
     size: "md" | "lg" | "xl"
 }
-export const ShopifyProductDisplayComponent: FC<ShopifyProductDisplayProps> = ({ product, id, size }): JSX.Element => {
+export const ShopifyProductDisplayComponent: FC<ShopifyProductDisplayProps> = ({ product, id }): JSX.Element => {
 
-    const [itemState, setItemState] = useState(true);
+    const [itemState] = useState(true);
     const theme = useThemeContext();
 
     return (
