@@ -8,4 +8,4 @@ export interface NavigationDataProps extends BaseNavData {
     sub_routes?: SubRoute[];
 }
 
-export interface SubRoute extends BaseNavData { childRoutes: BaseNavData[] } 
+export interface SubRoute extends BaseNavData { childRoutes?: BaseNavData[] } 

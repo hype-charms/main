@@ -1,11 +1,11 @@
 {
-  "name": "@hypecharms/henched",
+  "name": "@hypecharms/hypecharms",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "playground:dev": "next dev",
-    "playground:start": "next start",
-    "playground:build": "next build",
+    "hypecharms:dev": "next dev",
+    "hypecharms:start": "next start",
+    "hypecharms:build": "next build",
     "build": "next build",
     "lint": "next lint"
   },

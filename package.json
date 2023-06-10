@@ -14,6 +14,8 @@
     "interface:build": "turbo run interface:build",
     "playground:dev": "turbo run playground:dev",
     "playground:build": "turbo run playground:build",
+    "hypecharms:dev": "turbo run hypecharms:dev",
+    "hypecharms:build": "turbo run hypecharms:build",
     "lint": "turbo run lint",
     "build": "turbo run build",
     "postinstall": "prisma generate --schema=./packages/util/prisma/schema.prisma"

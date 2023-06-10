@@ -32,7 +32,7 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
                 {eventheader_content && <EventheaderComponent visible={!screenPositionAtZero} eventheader_content={eventheader_content} />}
                 <HeaderContainer theme={theme} position={'static'} top={screenPositionAtZero}>
                     <LogoContainer top={!screenPositionAtZero} theme={theme}>
-                        {windowLoaded && <i className={header_content.logo} />}
+                        {windowLoaded && <i className={'fa-kit fa-logo'} />}
                     </LogoContainer>
                     {header_content.navigation && <NavigationContainer theme={theme}>
                         {!header_content.navigation.some(x => x.sub_routes !== undefined) ? header_content.navigation.map(({ href, title }, idx) => {
@@ -118,7 +118,6 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
                         <h2 style={{
                             fontSize: "35px",
                             color: !screenPositionAtZero ? theme?.colors["primary-text"] : theme?.colors["primary-text-light"],
-                            // @ts-ignore 
                             fontFamily: theme?.fontFamily.mono ?? ""
                             // @ts-ignore
                         }}>{header_content.brandName}</h2>

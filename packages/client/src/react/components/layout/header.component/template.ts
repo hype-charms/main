@@ -46,7 +46,8 @@ export const LogoContainer = styled.div(({ top, theme }: { theme: HypeTheme, top
     align-items:center;
     height: 100%;
     justify-content: center;
-        background-color: ${top ? theme.colors['primary-text'] : theme.colors['primary-text-light']};
+    color:  ${top ? theme.colors['primary-text-light'] : theme.colors['primary-text']};
+        background-color: ${top ? theme.colors['accent-one'] : theme.colors['primary-text-light']};
 `)
 
 export const NavigationContainer = styled.div(({ theme }: { theme: HypeTheme }) => `
@@ -89,7 +90,6 @@ export const StyledControlIcon = styled.i(({ theme, top }: { theme: HypeTheme, t
 height:1.3rem;
 width: 1.3rem; 
 cursor: pointer;
-padding: 1rem;
 color: ${top ? theme.colors['primary-text'] : theme.colors['primary-text-light']};
 &:hover {
     color: ${theme.colors["accent-one"]};
@@ -102,6 +102,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-evenly;
 align-items: center;
+height: 100%;
 `)
 
 export const MenuContainer = styled.div(({ theme, active }: { theme: HypeTheme, active: boolean }): string => `

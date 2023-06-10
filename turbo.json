@@ -67,6 +67,10 @@
             "cache": false,
             "persistent": true
         },
+        "hypecharms:dev": {
+            "cache": false,
+            "persistent": true
+        },
         "lint": {},
         "interface:start": {
             "dependsOn": [

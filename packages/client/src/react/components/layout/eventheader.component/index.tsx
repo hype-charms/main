@@ -33,9 +33,11 @@ export const EventheaderComponent = ({ eventheader_content, visible }: SubHeader
 export const EventStandardLink = styled(StandardLink)(({ theme }: { theme: HypeTheme }): string => `
 align-items: center;
 cursor: pointer;
+color: ${theme.colors['primary-text']};
 &:hover{
     opacity: 90%;
     color: ${theme.colors["accent-two"]};
+    background-color: inherit;
 }
 `);
 
