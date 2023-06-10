@@ -150,3 +150,25 @@ export enum ProductFilters {
     NEW_TO_OLD = 'Date, New to Old',
     OLD_TO_NEW = 'Date, Old to New',
 }
+
+export class HypeItemReference {
+    id?: string;
+    unit_amount?: number | null;
+    images?: string[];
+    default_price?: string;
+    created?: number;
+    quantity?: number;
+    description?: string;
+    metadata?: JSON;
+    category?: ProductCategories;
+    type?: ProductType;
+    name?: string;
+    package_dimensions?: null;
+    shippable?: boolean | null;
+    unit_label?: null;
+    currency?: string;
+    inventory?: number | null;
+    constructor(partial: Partial<HypeItemReference>) {
+        Object.assign(this, partial);
+    }
+}

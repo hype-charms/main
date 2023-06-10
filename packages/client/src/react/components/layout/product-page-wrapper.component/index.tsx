@@ -1,64 +1,137 @@
-import { ProductFilters, ShopifyItemReference } from "@hype-charms/types";
-import React, { FC, useCallback, useState } from "react";
-import { Module } from "../module.component";
-import { ShopifyProductDisplayComponent } from "../../shopify";
-import Image from "next/image"
+import { HypeItemReference, ProductFilters } from "@hype-charms/types";
+import React, { FC, useCallback } from "react";
+import styled from "styled-components";
+import { useThemeContext } from "../../../context";
+import { HypeTheme } from "../../../models";
 
 interface ProductWrapperProps {
-    items?: ShopifyItemReference[],
+    items?: HypeItemReference[],
     loadedItemQuantity: number,
     title: string,
     description: string,
     image: string,
-    children?: JSX.Element
+    children?: JSX.Element,
+    onFilterChange?: (key: ProductFilters) => void
 }
-export const ProductPageWrapperComponent: FC<ProductWrapperProps> = ({ items, loadedItemQuantity, title, description, image, children }) => {
-
-    const [filter, setFilter] = useState<ProductFilters>();
+export const ProductPageWrapperComponent: FC<ProductWrapperProps> = ({ loadedItemQuantity, title, description, image, children, onFilterChange }) => {
     return (
         <ProductPageLayout
             title={title}
             description={description}
             image={image}
             loadedItemQuantity={loadedItemQuantity}
-            onSetFilter={(key) => setFilter(key)}
+            onFilterChange={onFilterChange}
         >
-            {items ? <Module>
-                <main id="products-main" className="w-full">
-                    <>{items.map((product, idx) => <ShopifyProductDisplayComponent size="md" id=" product-page" key={idx} product={product} />)}
-                    </>
-                </main>
-            </Module>
-                :
-                <>{children}</>
-            }
+            {children}
         </ProductPageLayout>
     )
 }
 
-interface ProductPageLayoutProps extends ProductWrapperProps {
-    onSetFilter: (key: ProductFilters) => void
+const ProductPageLayout: FC<ProductWrapperProps> = ({ children, title, description, image, loadedItemQuantity, onFilterChange }) => {
+    const setFilter = useCallback((key: ProductFilters) => {
+        onFilterChange && onFilterChange(key)
+    }, [onFilterChange]);
+    const theme = useThemeContext();
+    return (
+        <Container theme={theme}>
+            <TitleSection theme={theme}>
+                <PageInfo theme={theme}>
+                    <HeadingText theme={theme}>{title}</HeadingText>
+                    <HeadingDescription theme={theme}>
+                        {description}
+                    </HeadingDescription>
+                </PageInfo>
+                <Background theme={theme} url={image ? image : ''}>
+                    {/* <Image src={image ? image : ""} alt="" height={350} width={700} /> */}
+                </Background>
+            </TitleSection>
+            <Section theme={theme}>
+                <p className="">{loadedItemQuantity} PRODUCTS</p>
+                <StyledSelect theme={theme} disabled={onFilterChange !== undefined}>
+                    {Object.values(ProductFilters).map(x => <StyledOption theme={theme} onClick={() => setFilter(x)} key={x} className="rounded-none text-secondary-light text-opacity-80">{x}</StyledOption>)}
+                </StyledSelect>
+            </Section>
+            <Section theme={theme}>
+                {children}
+            </Section>
+        </Container>
+    )
 }
-const ProductPageLayout: FC<ProductPageLayoutProps> = ({ children, title, description, image, loadedItemQuantity, onSetFilter }) => {
-    const setFilter = useCallback((key: ProductFilters) => onSetFilter(key), [onSetFilter])
-    return (<div className="px-40 flex flex-col items-center">
-        <section className="">
-            <div className="">
-                <h2 className="text-4xl text-secondary-dark">{title}</h2>
-                <p className="text-xl text-secondary">
-                    {description}
-                </p>
-            </div>
-            <div className="">
-                <Image src={image ? image : "/assets/main-backgrounds/rick-and-morty-grad.jpg"} alt="" height={350} width={700} />
-            </div>
-        </section>
-        <section className="">
-            <p className="">{loadedItemQuantity} PRODUCTS</p>
-            <select className="">
-                {Object.values(ProductFilters).map(x => <option onClick={() => setFilter(x)} key={x} className="rounded-none text-secondary-light text-opacity-80">{x}</option>)}
-            </select>
-        </section>
-        {children}
-    </div>)
-}
+
+const StyledOption = styled.option(({ theme }: { theme: HypeTheme }) => `
+    font-family: ${theme.fontFamily.sans};
+    font-size: smaller;
+    cursor: pointer;
+`);
+
+const StyledSelect = styled.select(({ theme }: { theme: HypeTheme }) => `
+    width: 15rem;
+    font-family: ${theme.fontFamily.mono};
+    border-radius: ${theme.ui_theme.rounded ? "0.5rem" : "0"};
+    padding: 0.5rem;
+    background-color: ${theme.colors["accent-one"]};
+    color: ${theme.colors["primary-text-light"]};
+    cursor: pointer;
+`);
+
+const Background = styled.div(({ theme, url }: { theme: HypeTheme, url: string }) => `
+    flex: 1;
+    background-image: linear-gradient(to right, ${theme.colors.primary}, rgba(0,0,0,0), ${theme.colors.primary}),url(${url});
+    background-position: center;
+    height: 20rem;
+`);
+
+const TitleSection = styled.section(({ theme }: { theme: HypeTheme }) => `
+    background-color: ${theme.colors["secondary"]};
+    border: ${theme.ui_theme.borders ? "solid 1px " + theme.colors.border : ""};
+    border-radius: ${theme.ui_theme.rounded ? "0.5rem" : "0"};
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 0rem 0rem 0rem 1rem;
+    overflow: clip;
+`);
+
+const HeadingText = styled.h2(({ theme }: { theme: HypeTheme }) => `
+    font-family: ${theme.fontFamily.mono};
+    color: ${theme.colors["primary-text"]};
+`);
+
+const HeadingDescription = styled.p(({ theme }: { theme: HypeTheme }) => `
+    font-size: smaller;
+    font-family: ${theme.fontFamily.sans};
+    color: ${theme.colors["primary-text"]};
+`);
+
+const PageInfo = styled.div(() => `
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: flex-start;
+`);
+
+const Container = styled.div(({ theme }: { theme: HypeTheme }) => `
+    height: fit-content;
+    width: 100%;
+    padding: ${theme.ui_theme.margins ? "4rem" : "2rem"} ${theme.ui_theme.margins};
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`);
+
+const Section = styled.section(({ theme }: { theme: HypeTheme }) => `
+    width: 100%;
+    padding: 1rem 1rem;
+    height: fit-content;
+    border: ${theme.ui_theme.borders ? "solid 1px " + theme.colors.border : ""};
+    border-radius: ${theme.ui_theme.rounded ? "0.5rem" : "0"};
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+`);

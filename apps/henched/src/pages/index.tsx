@@ -1,16 +1,23 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { LayoutComponent, Module, ShopifyProductDisplayComponent } from "@hype-charms/client"
+import { LayoutComponent, Module, ProductDisplayComponent } from "@hype-charms/client"
 import { eventheader_content, header_content, subheader_content } from "../constants/header";
 import { MainComponent } from "../components/main.component";
-import { ShopifyItemReference } from "@hype-charms/types";
+import { HypeItemReference } from "@hype-charms/types";
+import { useHeaderControls } from "../hooks/header-controls";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const products = await shop.products.fetchAllProducts(100).catch();
+  // const products: HypeItemReference[] | null = await shop.products.fetchAllProducts(100)
+  //   .then(data => data.map((data) => MapShopifyProductReferencesToHypeItemReference(data.node)))
+  //   .catch(err => {
+  //     console.log(err);
+  //     return null
+  //   });
   const products = null;
   return { props: { products: products } }
 }
-const Home: NextPage<{ products: { node: ShopifyItemReference }[] | null }> = ({ products }) => {
+const Home: NextPage<{ products: HypeItemReference[] | null }> = ({ products }) => {
+  const { handleCartClick, handleProfileClick } = useHeaderControls();
   return (
     <>
       <Head>
@@ -19,14 +26,19 @@ const Home: NextPage<{ products: { node: ShopifyItemReference }[] | null }> = ({
         <link rel="icon" href="/favicon.ico" />
         <script type="text/javascript" src="/scripts/font-awesome.js" defer></script>
       </Head>
-      <LayoutComponent eventheader_content={eventheader_content} subheader_content={subheader_content} header_content={header_content}>
+      <LayoutComponent
+        onCartClick={handleCartClick}
+        onProfileClick={handleProfileClick}
+        eventheader_content={eventheader_content}
+        subheader_content={subheader_content}
+        header_content={header_content}>
         <div className="pt-3">
           <Module>
             <MainComponent packs={[]} products={[]} />
           </Module>
           <Module title="Featured" href="/">
             {products && <div className="flex flex-row justify-start gap-6 overflow-x-scroll py-8">
-              {products.map(({ node }, idx) => <ShopifyProductDisplayComponent key={idx} size="md" product={node} id="" />)}
+              {products.map((product, idx) => <ProductDisplayComponent key={idx} size="md" product={product} id="" />)}
             </div>}
           </Module>
         </div>

@@ -122,7 +122,7 @@ height: ${!active ? "0px" : "fit-content"};
 `)
 
 
-export const LinkSection = styled.div(({ theme }: { theme: HypeTheme }) => `
+export const LinkSection = styled.div(() => `
 z-index: 30;
 flex:1;
 height: 100%;
@@ -141,7 +141,9 @@ export const StandardLink = styled.a(({ theme }: { theme: HypeTheme }) => `
     color: ${theme.colors ? theme.colors["secondary-light"] : ""};
     padding: 0.1rem 0.5rem;
     &:hover{
-        background-color: ${theme.colors ? theme.colors['secondary-dark'] : ""};
+        opacity: 70%;
+        color: black;
+        background-color: ${theme.colors ? theme.colors['primary'] : ""};
     }
     &:hover ${MainLinkTextLight}{
         color: ${theme?.colors && theme.colors['secondary-dark']};
@@ -189,7 +191,7 @@ color: ${theme?.colors["primary-text"]};
 text-align: center;
 width: 100%;
 &:hover{
-    color: ${theme.colors["accent-one"]}
+    color: ${theme.colors["accent-one"]};
 }
 `)
 

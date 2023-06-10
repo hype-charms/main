@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import styled from 'styled-components';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -12,23 +12,19 @@ import {
     NavigationContainer, NavigationMenuContainer, StandardLink, StyledControlIcon,
     SubLinkTextLight
 } from './template';
+import { useHeaderStateWithMainDropdown, useHeaderStateWithSnigleDropdowns } from '../../../hooks/header';
 
 export interface HeaderComponentSingleDropdownsProps {
     header_content: { logo: string; navigation: NavigationDataProps[] };
     subheader_content?: { navigation: BaseNavData[] },
     eventheader_content?: { navigation: BaseNavData[] },
+    onCartClick: () => void;
+    onProfileClick: () => void;
 }
-export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsProps> = ({ header_content, subheader_content, eventheader_content }) => {
+export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsProps> = ({ header_content, subheader_content, eventheader_content, onCartClick, onProfileClick }) => {
 
-    const [dropdown, setDropdownMenu] = useState<number>(-1);
+    const { dropdown, windowLoaded, screenPositionAtZero, setDropdownMenu } = useHeaderStateWithSnigleDropdowns();
     const theme = useThemeContext();
-    const [screenPositionAtZero, setScreenPositionAtZero] = useState<boolean | null>(null);
-    const scroller = () => setScreenPositionAtZero(window.scrollY < 100)
-
-    useEffect(() => {
-        window.addEventListener('scroll', scroller);
-        return () => window.removeEventListener('scroll', scroller)
-    }, [])
 
     return (
         <>
@@ -36,7 +32,7 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
                 {eventheader_content && <EventheaderComponent visible={!screenPositionAtZero} eventheader_content={eventheader_content} />}
                 <HeaderContainer theme={theme} position={'static'} top={screenPositionAtZero}>
                     <LogoContainer top={!screenPositionAtZero} theme={theme}>
-                        <i className={header_content.logo} />
+                        {windowLoaded && <i className={header_content.logo} />}
                     </LogoContainer>
                     {header_content.navigation && <NavigationContainer theme={theme}>
                         {!header_content.navigation.some(x => x.sub_routes !== undefined) ? header_content.navigation.map(({ href, title }, idx) => {
@@ -76,7 +72,7 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
                             )
                         })}
                     </NavigationContainer>}
-                    <HeaderControlsComponent top={screenPositionAtZero} theme={theme} />
+                    <HeaderControlsComponent onCartClick={onCartClick} onProfileClick={onProfileClick} top={screenPositionAtZero} theme={theme} />
                 </HeaderContainer>
                 {subheader_content !== null && <SubheaderComponent visible={!screenPositionAtZero} menuActive={dropdown > -1} subheader_content={subheader_content} />}
             </HeaderWrapper>
@@ -90,37 +86,26 @@ opacity: ${active ? "20%" : "0%"};
 background-color: black;
 height: 100vh;
 width: 100vw;
+pointer-events: ${active ? "auto" : "none"};
 position: fixed;
 top: 0;
 left: 0;
 transition: all 1s;
-z-index: ${active ? "30" : "-10"};
+z-index: 30;
+
 `);
 
 export interface HeaderComponentMainDropdown {
     header_content: { logo: string; navigation: NavigationDataProps[] };
     subheader_content?: { navigation: BaseNavData[] },
     eventheader_content?: { navigation: BaseNavData[] },
+    onCartClick: () => void;
+    onProfileClick: () => void;
 }
-export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ header_content, subheader_content, eventheader_content }) => {
+export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ header_content, subheader_content, eventheader_content, onCartClick, onProfileClick }) => {
 
     const theme = useThemeContext();
-    const [dropdown, setDropdownMenu] = useState<number>(-1);
-    const [renderNavMenu, setRenderNavMenu] = useState<boolean>(false);
-    const [screenPositionAtZero, setScreenPositionAtZero] = useState<boolean | null>(true);
-    const scroller = () => setScreenPositionAtZero(window.scrollY < 100)
-
-
-    useEffect(() => {
-        setScreenPositionAtZero(window.scrollY < 100);
-        window.addEventListener('scroll', scroller);
-        return () => window.removeEventListener('scroll', scroller)
-    }, [])
-
-    useEffect(() => {
-        setRenderNavMenu(dropdown >= 0 && header_content.navigation[dropdown].sub_routes !== undefined);
-    }, [dropdown, header_content.navigation]);
-
+    const { dropdown, renderNavMenu, screenPositionAtZero, setDropdownMenu } = useHeaderStateWithMainDropdown(header_content.navigation)
     return (
         <>
 
@@ -151,7 +136,7 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
                             </>
                         </NavigationContainer>}
                     </>
-                    <HeaderControlsComponent top={screenPositionAtZero} theme={theme} />
+                    <HeaderControlsComponent onCartClick={onCartClick} onProfileClick={onProfileClick} top={screenPositionAtZero} theme={theme} />
                 </HeaderContainer>
                 {subheader_content !== null && <SubheaderComponent visible={!screenPositionAtZero} menuActive={renderNavMenu} subheader_content={subheader_content} />}
                 <MenuContainer active={renderNavMenu} theme={theme}>
@@ -186,9 +171,11 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
     )
 }
 
-const HeaderControlsComponent = ({ theme, top }: { theme: HypeTheme | undefined | null, top: boolean | null | undefined }) => {
+const HeaderControlsComponent = ({ theme, top, onCartClick, onProfileClick }: { theme: HypeTheme | undefined | null, top: boolean | null | undefined, onCartClick: () => void, onProfileClick: () => void }) => {
+    const handleProfileClick = useCallback(() => onProfileClick(), [onProfileClick])
+    const handleCartClick = useCallback(() => onCartClick(), [onCartClick])
     return <HeaderControls theme={theme}>
-        <StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-cart-shopping`} />
-        <StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-user`} />
+        <button onClick={handleCartClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-cart-shopping`} /></button>
+        <button onClick={handleProfileClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-user`} /></button>
     </HeaderControls>
 }

@@ -130,10 +130,9 @@ export namespace products {
     /**
      * 
      * @param batchAmount sets the amount of items to retrieve per batch
-     * @param limit if defined sets the max amount of items to retrieve, otherwise will fetch all
      * @returns returns all
      */
-    export const batchItems = async (batchAmount: number, limit?: number): Promise<Stripe.Product[]> => {
+    export const batchItems = async (batchAmount: number): Promise<Stripe.Product[]> => {
         return await stripe.products.list({ limit: batchAmount }).then(data => data.data);
     }
 
@@ -157,7 +156,7 @@ export namespace products {
                 success_url: `${domainURL}?checkout="success"`,
                 cancel_url: `${domainURL}/checkout`,
             });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.log(`⚠️  Create stripe checkout failed `, err.message);
             return null
@@ -184,7 +183,7 @@ export namespace products {
                 success_url: `${domain_url}?checkout="success"`,
                 cancel_url: `${domain_url}/checkout`,
             });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.log(`⚠️  Create stripe checkout failed `, err.message);
             return null

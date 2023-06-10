@@ -1,7 +1,7 @@
 export const navigation_data = [{
   title: "HENCHED", href: "/", sub_routes: [
     { title: "Our Mission", childRoutes: [{ title: "top", href: "#top" }, { title: "blog", href: "#blog" }, { title: "signup", href: "#signup" }], href: "/" },
-    { title: "Catalogue", childRoutes: [{ title: "mens", href: "/" }, { title: "womens", href: "/" }], href: "/" },
+    { title: "Catalogue", childRoutes: [{ title: "All Products", href: "/products" }, { title: "womens", href: "/" }], href: "/" },
     { title: "Memberships", childRoutes: [{ title: "signup", href: "/" }, { title: "unsubscribe", href: "/" }], href: "/" },
   ]
 }, {
@@ -12,19 +12,19 @@ export const navigation_data = [{
   ]
 },
 { title: "SUPPORT", href: "/about" }, { title: "All Products", href: "/products" }]
-const sub_navigation_data = [{
-  title: "trending",
-  href: "/",
-}, {
-  title: "new items",
-  href: "/",
-}, {
-  title: "sale",
-  href: "/",
-}, {
-  title: "feautured",
-  href: "/",
-}]
+// const sub_navigation_data = [{
+//   title: "trending",
+//   href: "/",
+// }, {
+//   title: "new items",
+//   href: "/",
+// }, {
+//   title: "sale",
+//   href: "/",
+// }, {
+//   title: "feautured",
+//   href: "/",
+// }]
 const event_navigation_data = [{
   title: "Signup now to enjoy benefits",
   href: "/",

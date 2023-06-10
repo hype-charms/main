@@ -26,7 +26,7 @@ export const MainComponent: FC<MainComponentProps> = (): JSX.Element => {
 
     return (
         <>
-            <main className="xl:w-[100%] lg:w-[100%] xl:flex lg:flex md:flex sm:flex hidden m-auto flex-row h-full" >
+            <main className="xl:w-[100%] lg:w-[100%] xl:flex lg:flex md:flex sm:flex hidden m-auto flex-row" >
                 <section id="main" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={MainClasses.main} >
                     <div id="background-container" className={MainClasses.backgroundContainer}>
                         <div className="shadow-[rgba(0,0,0,0.4)] shadow-md h-full overflow-clip">
@@ -69,7 +69,7 @@ const backgroundImages = [
 const MainClasses = {
     main: `  
     shadow-[rgba(0,0,0,0.5)] relative flex justify-center items-center 
-    xl:w-[100%] xl:h-[90vh] xl:ml-[0%]
+    xl:w-[100%] xl:h-[80vh] xl:ml-[0%]
     lg:w-[100%] lg:h-[80vh]
     md:w-[100%] md:h-[80vh]
     sm:w-[100%] sm:h-[80vh] sm:left-0

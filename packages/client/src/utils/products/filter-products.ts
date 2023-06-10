@@ -1,6 +1,6 @@
-import { ProductFilters, StripeItemReference } from "@hype-charms/types"
+import { HypeItemReference, ProductFilters } from "@hype-charms/types"
 
-export const filterProducts = (items: StripeItemReference[] | undefined, filter: ProductFilters | undefined) => {
+export const filterProducts = (items: HypeItemReference[] | undefined, filter: ProductFilters | undefined) => {
     switch (filter) {
         case ProductFilters.A_TO_Z:
             return items?.map(x => x).sort((a, b) => ('' + a.name).localeCompare(b.name!))

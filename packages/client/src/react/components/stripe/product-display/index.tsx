@@ -1,19 +1,24 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import Image from 'next/image'
-import { Currency, StripeItemReference } from "@hype-charms/types";
+import { Currency, HypeItemReference } from "@hype-charms/types";
 import { ProductContainer, ClipperContainer, ImageWrapper, TextContainer, TextCard, HeadingText, ParagraphText } from "./template";
 import { useThemeContext } from "../../../context";
 import { formatPrice } from "../../../../stripe";
 
-export interface StripeProductDisplayProps {
-    product: StripeItemReference,
-    id: string,
-    size: "md" | "lg" | "xl"
+export interface ProductDisplayProps {
+    product: HypeItemReference;
+    id: string;
+    size: "md" | "lg" | "xl";
+    onClick?: (product: HypeItemReference) => void;
 }
-export const StripeProductDisplayComponent: FC<StripeProductDisplayProps> = ({ product, id }): JSX.Element => {
+export const ProductDisplayComponent: FC<ProductDisplayProps> = ({ product, id, onClick }): JSX.Element => {
 
     const [itemState, setItemState] = useState(true);
     const theme = useThemeContext();
+
+    const handleClick = useCallback(() => {
+        onClick && onClick(product)
+    }, [product, onClick])
 
     useEffect(() => {
         const hasInventory = !product.inventory || product.inventory === 0
@@ -29,7 +34,7 @@ export const StripeProductDisplayComponent: FC<StripeProductDisplayProps> = ({ p
                     aria-label={`opens a product page for the product ${product.name}`}
                     key={product.id}
                     disabled={itemState}
-                    onClick={console.log}
+                    onClick={handleClick}
                 >
                     <span className="xl:hidden lg:hidden md:hidden block">
                         <Image src={product?.images ? product.images[0] ?? '' : ''} alt={product.description} height={140} width={140} />

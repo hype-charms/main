@@ -23,6 +23,9 @@ export default defineNextConfig({
   images: {
     domains: ["images.unsplash.com", "cdn.shopify.com"]
   },
+  compiler: {
+    styledComponents: true
+  },
   async headers() {
     return [
       {
