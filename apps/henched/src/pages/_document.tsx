@@ -1,4 +1,4 @@
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
+import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -28,5 +28,19 @@ export default class MyDocument extends Document {
         } finally {
             sheet.seal()
         }
+    }
+    render() {
+        return (
+            <Html>
+                <Head>
+                    <script type="text/javascript" src="/scripts/font-awesome.js" defer></script>
+                    <script src="https://kit.fontawesome.com/79212755ff.js" defer />
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        )
     }
 }

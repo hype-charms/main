@@ -14,7 +14,7 @@ export const HeaderContainer = styled.div(({ theme, position, top }: HeaderConta
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
-    min-height: 50px;
+    min-height: 40px;
     position: ${position};
     top: 0;
     left:0;
@@ -23,7 +23,7 @@ export const HeaderContainer = styled.div(({ theme, position, top }: HeaderConta
     border-bottom: ${theme.ui_theme?.borders ? 'solid 1px ' + theme.colors.border : ''};
     box-shadow: 0 0 0.4rem 0.01rem rgba(0,0,0, 0.1);
     z-index: 30;
-    transition: all 1s;
+    transition: height 0.3s;
 `)
 
 export const HeaderWrapper = styled.div(({ position }: Omit<HeaderContainerStyleProps, 'theme' | 'top'>) => `
@@ -65,15 +65,15 @@ export const NavigationMenuContainer = styled.div(({ theme, active }: { theme: H
     box-shadow: 0.2rem 0.1rem 0.5rem 0.01rem rgba(0,0,0,0.1);
     width: 100%;
     transform: translateY(1px);
-    gap: 10px;
+    gap: 0px;
     display: flex;
     align-items: start;
     flex-direction: column;
     z-index: 20;
-    padding: 0 10px;
+    padding: 0 0px;
 ` : `
     padding-top: 0.3rem;
-    transition: all 0.5s;
+    transition: opacity 1s;
     background-color: ${theme.colors['accent-one']};
     box-shadow: 0.2rem 0.1rem 0.5rem 0.01rem rgba(0,0,0,0.1);
     width: 100%;
@@ -86,19 +86,27 @@ export const NavigationMenuContainer = styled.div(({ theme, active }: { theme: H
     z-index: 1;
 `)
 
+export const StyledControlButton = styled.button(({ theme }: { theme: HypeTheme }) => `
+flex: 1;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items:center;
+&:hover ${StyledControlIcon} {
+    color: ${theme.colors["accent-two"]};
+}
+`)
 export const StyledControlIcon = styled.i(({ theme, top }: { theme: HypeTheme, top: boolean | null | undefined }) => `
 height:1.3rem;
 width: 1.3rem; 
 cursor: pointer;
 color: ${top ? theme.colors['primary-text'] : theme.colors['primary-text-light']};
-&:hover {
-    color: ${theme.colors["accent-one"]};
-}
 `)
 
-export const HeaderControls = styled.div(() => `
+export const HeaderControls = styled.div(({ theme, top }: { theme: HypeTheme, top: boolean | null | undefined }) => `
 flex: 1;
 display: flex;
+background-color: ${top ? theme.colors["primary-text-light"] : theme.colors["primary"]};
 flex-direction: row;
 justify-content: space-evenly;
 align-items: center;
@@ -114,7 +122,7 @@ flex-wrap: no-wrap;
 justify-content: space-evenly;
 align-items: start;
 width: 80vw;
-transition: all 0.5s;
+transition: height 0.3s;
 padding: ${active ? "1rem" : ""};
 transform: translateY(-3px);
 background-color: ${theme.colors["secondary-dark"]};
@@ -138,28 +146,28 @@ export const StandardLink = styled.a(({ theme }: { theme: HypeTheme }) => `
     align-items:start;
     justify-content: center;
     text-align: start;
-    transition: all 0.5s;
-    color: ${theme.colors ? theme.colors["secondary-light"] : ""};
-    padding: 0.1rem 0.5rem;
+    transition: height 0.3s;
+    color: ${theme.colors["secondary-light"]};
+    padding: 0.3rem 0.5rem;
     &:hover{
         opacity: 70%;
         color: black;
-        background-color: ${theme.colors ? theme.colors['primary'] : ""};
+        background-color: ${theme.colors['primary']};
     }
     &:hover ${MainLinkTextLight}{
-        color: ${theme?.colors && theme.colors['secondary-dark']};
+        color: ${theme.colors['light-text']};
     }
     &:hover ${MainLinkTextDark}{
-        color: ${theme?.colors && theme.colors["accent-one"]}
+        color: ${theme.colors["accent-one"]}
     }
     &:hover ${SubLinkTextDark}{
-        color: ${theme?.colors && theme.colors["accent-one"]}
+        color: ${theme.colors["accent-one"]}
     }
     &:hover ${ChildLinkDark}{
-        color: ${theme?.colors && theme.colors['secondary-dark']};
+        color: ${theme.colors['secondary-dark']};
     }
     &:hover ${ChildLinkLight}{
-        color: ${theme?.colors && theme.colors['secondary-light']};
+        color: ${theme.colors['secondary-light']};
     }
     &:hover ${SubLinkTextLight}{
         opacity: 50%;
@@ -171,15 +179,12 @@ font-family: ${theme.fontFamily.mono};
 color: ${theme?.colors["light-text"]};
 text-align: center;
 width: 100%;
-&:hover{
-    color: ${theme.colors['secondary-dark']};
-}
 `)
 
 export const LinkMenuSection = styled.div(() => `
 flex: 1;
 display: flex;
-padding: 0rem 0.5rem;
+padding: 0rem 0rem;
 flex-direction:column;
 justify-content: flex-start;
 align-items:center;
@@ -191,9 +196,6 @@ font-family: ${theme.fontFamily.mono};
 color: ${theme?.colors["primary-text"]};
 text-align: center;
 width: 100%;
-&:hover{
-    color: ${theme.colors["accent-one"]};
-}
 `)
 
 
@@ -201,10 +203,6 @@ export const ChildLinkDark = styled(MainLinkTextDark)(({ theme }: { theme: HypeT
 color: ${theme.colors['secondary-dark']};
 text-align: left;
 width: 100%;
-&hover:{
-    color: ${theme.colors['secondary-dark']};
-    opacity: 80%;
-}
 `)
 
 export const ChildLinkLight = styled(MainLinkTextLight)(({ theme }: { theme: HypeTheme }) => `
@@ -212,10 +210,6 @@ export const ChildLinkLight = styled(MainLinkTextLight)(({ theme }: { theme: Hyp
 color: ${theme.colors['secondary-light']};
 text-align: left;
 width: 100%;
-&hover:{
-    color: ${theme.colors['secondary-light']};
-    opacity: 80%;
-}
 `)
 
 export const SubLinkTextDark = styled.h3(({ theme }: { theme: HypeTheme }) => `
@@ -223,9 +217,6 @@ font-family: ${theme.fontFamily.mono};
 color: ${theme.colors['primary-text']};
 text-align: center;
 width: 100%;
-&:hover{
-    color: ${theme.colors["accent-one"]}
-}
 `)
 
 export const SubLinkTextLight = styled.h3(({ theme }: { theme: HypeTheme }) => `
@@ -233,9 +224,6 @@ font-family: ${theme.fontFamily.mono};
 color: ${theme.colors['secondary-text']};
 text-align: center;
 width: 100%;
-&:hover{
-    opacity: 50%;
-}
 `)
 
 export const FlexGrowLink = styled(StandardLink)`

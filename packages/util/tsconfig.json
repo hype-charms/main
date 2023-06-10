@@ -13,7 +13,8 @@
   },
   "include": [
     "**/*.ts",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    "webpack.config.js"
   ],
   "exclude": [
     "node_modules",

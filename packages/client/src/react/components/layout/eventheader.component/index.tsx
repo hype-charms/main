@@ -11,7 +11,6 @@ interface SubHeaderComponentProps {
 export const EventheaderComponent = ({ eventheader_content, visible }: SubHeaderComponentProps) => {
     const theme = useThemeContext();
     const [count, setCount] = useState<number>(0);
-
     useEffect(() => {
         const interval = window.setInterval(() => {
             if (count < 2) {
@@ -24,7 +23,7 @@ export const EventheaderComponent = ({ eventheader_content, visible }: SubHeader
     }, [count])
 
     return <EventheaderContainer theme={theme} visible={visible}>
-        <SubLinkContainer>
+        <SubLinkContainer visible={visible}>
             <EventStandardLink href={eventheader_content.navigation[count].href} theme={theme}>{eventheader_content.navigation[count].title}</EventStandardLink>
         </SubLinkContainer>
     </EventheaderContainer>
@@ -33,6 +32,8 @@ export const EventheaderComponent = ({ eventheader_content, visible }: SubHeader
 export const EventStandardLink = styled(StandardLink)(({ theme }: { theme: HypeTheme }): string => `
 align-items: center;
 cursor: pointer;
+font: ${theme.fontFamily.sans};
+font-size: smaller;
 color: ${theme.colors['primary-text']};
 &:hover{
     opacity: 90%;
@@ -41,17 +42,18 @@ color: ${theme.colors['primary-text']};
 }
 `);
 
-export const SubLinkContainer = styled.div((): string => `
+export const SubLinkContainer = styled.div(({ visible }: { visible: boolean }): string => `
 width: 50%;
 display: flex;
 flex-direction: row;
 justify-content: evenly;
+opacity: ${!visible ? "100%" : "0%"};
+transition: opacity 1s;
 `)
 
 export const EventheaderContainer = styled.div(({ theme, visible }: { theme: HypeTheme, visible: boolean }): string => `
 height: ${visible ? "0rem" : "2rem"};
-opacity: ${visible ? "0%" : "100%"};
-transition: all 0.5s;
+transition: height 0.5s;
 background-color: ${theme.colors['secondary-light']};
 width: 100vw;
 transition: height: 0.5s;

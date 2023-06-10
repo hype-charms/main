@@ -9,7 +9,7 @@ import { SubheaderComponent } from '../subheader.component';
 import {
     ChildLinkDark, ChildLinkLight, FlexGrowLink, HeaderContainer, HeaderControls, HeaderWrapper,
     LinkMenuSection, LinkSection, LogoContainer, MainLinkTextDark, MainLinkTextLight, MenuContainer,
-    NavigationContainer, NavigationMenuContainer, StandardLink, StyledControlIcon,
+    NavigationContainer, NavigationMenuContainer, StandardLink, StyledControlButton, StyledControlIcon,
     SubLinkTextLight
 } from './template';
 import { useHeaderStateWithMainDropdown, useHeaderStateWithSnigleDropdowns } from '../../../hooks/header';
@@ -37,25 +37,27 @@ export const HeaderComponentSingleDropdowns: FC<HeaderComponentSingleDropdownsPr
                     {header_content.navigation && <NavigationContainer theme={theme}>
                         {!header_content.navigation.some(x => x.sub_routes !== undefined) ? header_content.navigation.map(({ href, title }, idx) => {
                             // renders when no sub routes are defined
-                            return <StandardLink theme={theme} key={idx} href={href}><MainLinkTextDark theme={theme}>{title}</MainLinkTextDark></StandardLink>
+                            return <StandardLink theme={theme} key={idx} href={href}>{screenPositionAtZero ?
+                                <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
+                                <MainLinkTextLight theme={theme}>{title}</MainLinkTextLight>}</StandardLink>
                         }) : header_content.navigation.map(({ href, title, sub_routes }, idx) => {
                             // renders when sub routes are defined
                             return (
                                 <LinkSection id="link section" theme={theme} key={idx}>
-                                    <FlexGrowLink id="link" theme={theme} href={href} onMouseEnter={() => setDropdownMenu(idx)}>
+                                    <FlexGrowLink id="here link" theme={theme} href={href} onMouseEnter={() => setDropdownMenu(idx)}>
                                         {screenPositionAtZero ?
                                             <MainLinkTextDark theme={theme}>{title}</MainLinkTextDark> :
-                                            <MainLinkTextLight style={{ opacity: "70%" }} theme={theme}>{title}</MainLinkTextLight>}
+                                            <MainLinkTextLight theme={theme}>{title}</MainLinkTextLight>}
                                     </FlexGrowLink>
                                     <div style={{ paddingTop: "0.5rem" }}>
                                         <NavigationMenuContainer active={idx === dropdown} theme={theme}>
                                             {dropdown === idx && sub_routes?.map(({ href, title, childRoutes }, idx) => {
                                                 return (
-                                                    <ul key={idx}><StandardLink href={href} >
+                                                    <ul key={idx} style={{ width: "100%" }}><StandardLink theme={theme} href={href} >
                                                         <SubLinkTextLight theme={theme}>{title}</SubLinkTextLight>
                                                     </StandardLink>
-                                                        <ul>
-                                                            {childRoutes?.map(({ title, href }, idx2) => <li key={`secondary ${idx2}`}>
+                                                        <ul style={{ width: "100%" }}>
+                                                            {childRoutes?.map(({ title, href }, idx2) => <li key={`secondary ${idx2}`} style={{ width: "100%" }}>
                                                                 <StandardLink theme={theme} href={href}>{
                                                                     screenPositionAtZero ?
                                                                         <ChildLinkDark theme={theme}>{title}</ChildLinkDark> :
@@ -147,9 +149,9 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
                                         <StandardLink id="link" theme={theme} href={href}>
                                             <MainLinkTextLight theme={theme}>{title}</MainLinkTextLight>
                                         </StandardLink>
-                                        <ul style={{ color: theme?.colors["secondary-light"] }}>
+                                        <ul style={{ color: theme?.colors["secondary-light"], width: "100%" }}>
                                             {childRoutes?.map((data, idx2) =>
-                                                <li key={`secondary ${idx2}`}>
+                                                <li key={`secondary ${idx2}`} style={{ width: "100%" }}>
                                                     <StandardLink id="link" theme={{ ...theme, ui_theme: { ...theme?.ui_theme, borders: false } }} href={href}>
                                                         <ChildLinkLight style={{ opacity: "80%" }} theme={theme}>{data.title}</ChildLinkLight>
                                                     </StandardLink>
@@ -173,8 +175,8 @@ export const HeaderComponentMainDropdown: FC<HeaderComponentMainDropdown> = ({ h
 const HeaderControlsComponent = ({ theme, top, onCartClick, onProfileClick }: { theme: HypeTheme | undefined | null, top: boolean | null | undefined, onCartClick: () => void, onProfileClick: () => void }) => {
     const handleProfileClick = useCallback(() => onProfileClick(), [onProfileClick])
     const handleCartClick = useCallback(() => onCartClick(), [onCartClick])
-    return <HeaderControls theme={theme}>
-        <button onClick={handleCartClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-cart-shopping`} /></button>
-        <button onClick={handleProfileClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-user`} /></button>
+    return <HeaderControls theme={theme} top={top}>
+        <StyledControlButton theme={theme} onClick={handleCartClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-cart-shopping`} /></StyledControlButton>
+        <StyledControlButton theme={theme} onClick={handleProfileClick}><StyledControlIcon top={top} theme={theme} className={`${theme?.ui_theme.icon_modifier} fa-user`} /></StyledControlButton>
     </HeaderControls>
 }

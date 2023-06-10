@@ -16,11 +16,11 @@ export const hype: HypeTheme = {
                 xl: '1440px',
             },
             colors: {
-                "primary": "#ffffff",
+                "primary": "#0c0a09",
                 "primary-text": "#fff",
-                "primary-text-light": "#18181b",
+                "primary-text-light": "#0c0a09",
                 "secondary": "#3f3f46",
-                "secondary-text": "#a1a1aa",
+                "secondary-text": "#ffffff",
                 "secondary-light": "#18181b",
                 "secondary-dark": "#18181b",
                 "light-text": "#f8fafc",
@@ -44,7 +44,7 @@ export const hype: HypeTheme = {
         icon_modifier: " fa-sharp fa-solid",
         header: {
             shrink: true,
-            height: "3rem",
+            height: "2rem",
             menu_configuration: "link-specific",
             position: "fixed",
             cart_configuration: "navigate",

@@ -93,6 +93,10 @@
             "cache": false,
             "persistent": true
         },
+        "henched:dev": {
+            "cache": false,
+            "persistent": true
+        },
         "lint": {},
         "interface:start": {
             "dependsOn": [
