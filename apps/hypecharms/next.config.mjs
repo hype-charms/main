@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
+// const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin')
 // const securityHeaders = [
 //   {
 //     key: "Strict-Transport-Security",
@@ -48,13 +48,13 @@ module.exports = defineNextConfig({
   compiler: {
     styledComponents: true
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()]
-    }
+  // webpack: (config, { isServer }) => {
+  //   if (isServer) {
+  //     config.plugins = [...config.plugins, new PrismaPlugin()]
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
   async headers() {
     return [
       // {

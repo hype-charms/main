@@ -27,7 +27,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "next.config.js",
+    "next.config.mjs",
     ".eslintrc.js",
   ],
   "exclude": [
