@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w --outdir dist",
-    "playground:dev": "tsc -w --outdir dist ",
+    "henched:dev": "tsc -w --outdir dist ",
     "hypecharms:dev": "tsc -w --outdir dist ",
     "prebuild": "tsc --outdir dist",
     "build": "NODE_ENV=production webpack"
