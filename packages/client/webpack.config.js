@@ -1,5 +1,6 @@
-import path from "path";
-import Dotenv from "dotenv-webpack";
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require("path");
+const dotenv = require("dotenv-webpack")
 
 module.exports = {
   // webpack optimization mode
@@ -8,12 +9,12 @@ module.exports = {
   watch: "development" === process.env.NODE_ENV,
 
   // entry files
-  entry: "./src/index.ts",
+  entry: "development" === process.env.NODE_ENV ? "./src/index.ts" : "./dist/src/index.js",
 
   // output files and chunks
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    path: path.resolve(__dirname, "development" === process.env.NODE_ENV ? "dist" : ".build"),
+    filename: "[name].js",
     libraryTarget: "umd",
     library: "@hypecharms/client",
     umdNamedDefine: true,
@@ -36,7 +37,7 @@ module.exports = {
 
   // webpack plugins
   plugins: [
-    new Dotenv(),
+    new dotenv(),
   ],
 
   // resolve files configuration

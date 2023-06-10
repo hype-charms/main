@@ -44,6 +44,28 @@
                 ".build/**"
             ]
         },
+        "henched:build": {
+            "dependsOn": [
+                "^lint",
+                "^prebuild",
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                ".build/**"
+            ]
+        },
+        "hypecharms:build": {
+            "dependsOn": [
+                "^lint",
+                "^prebuild",
+                "^build"
+            ],
+            "outputs": [
+                ".next/**",
+                ".build/**"
+            ]
+        },
         "postinstall": {
             "dependsOn": [
                 "^lint",
@@ -77,6 +99,7 @@
                 "^build"
             ]
         },
+        "hypecharms:start": {},
         "admin:start": {
             "dependsOn": [
                 "^build"

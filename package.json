@@ -14,8 +14,10 @@
     "interface:build": "turbo run interface:build",
     "henched:dev": "turbo run henched:dev",
     "henched:build": "turbo run henched:build",
+    "henched:start": "turbo run henched:start",
     "hypecharms:dev": "turbo run hypecharms:dev",
     "hypecharms:build": "turbo run hypecharms:build",
+    "hypecharms:start": "turbo run hypecharms:start",
     "lint": "turbo run lint",
     "build": "turbo run build",
     "postinstall": "prisma generate --schema=./packages/util/prisma/schema.prisma"

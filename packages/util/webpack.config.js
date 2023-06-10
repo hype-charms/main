@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const Dotenv = require("dotenv-webpack");
+const dotenv = require("dotenv-webpack");
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
 
   // webpack plugins
   plugins: [
-    new Dotenv(),
+    new dotenv(),
     new CopyPlugin({
       patterns: [{ from: 'prisma/schema.prisma', to: 'dist/prisma/schema.prisma' }],
     }),
